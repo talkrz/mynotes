@@ -1,24 +1,24 @@
 .Messages {
-    position: absolute;
-    top: 50px;
-    width: 300px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    text-align: center;
+  position: absolute;
+  top: 50px;
+  width: 300px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .Messages-message {
-    font-size: 15px;
-    color: #fff;
-    border-radius: 4px;
-    padding: 5px;
+  font-size: 15px;
+  color: #fff;
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .Messages-error {
-    background: #d66c6c;
+  background: #d66c6c;
 }
 
 .Messages-info {
-    background: #6cb4d6;
+  background: #6cb4d6;
 }

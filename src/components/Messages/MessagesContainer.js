@@ -1,13 +1,10 @@
-import { connect } from 'react-redux'
-import Messages from './Messages'
+import { connect } from 'react-redux';
+import Messages from './Messages';
 
-const mapStateToProps = state => {
-    console.log(state)
-    return {
-        messages: state.messages
-    }
-}
+const mapStateToProps = state => ({
+  messages: state.messages,
+});
 
 const MessagesContainer = connect(mapStateToProps)(Messages);
 
-export default MessagesContainer
+export default MessagesContainer;

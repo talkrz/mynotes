@@ -1,12 +1,10 @@
-import { connect } from 'react-redux'
-import BoardList from './BoardList'
+import { connect } from 'react-redux';
+import BoardList from './BoardList';
 
-const mapStateToProps = state => {
-    return {
-        boards: state.boardList.boards
-    }
-}
+const mapStateToProps = state => ({
+  boards: state.boardList.boards,
+});
 
 const BoardListContainer = connect(mapStateToProps)(BoardList);
 
-export default BoardListContainer
+export default BoardListContainer;
