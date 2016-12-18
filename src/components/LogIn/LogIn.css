@@ -1,0 +1,58 @@
+.LogIn-error {
+    font-size: 15px;
+    background: #d66c6c;
+    color: #fff;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.LogIn-form {
+    font-size: 20px;
+    text-align: left;
+    margin: auto;
+    padding: 25px;
+    width: 300px;
+    border: solid 1px #eee;
+    box-shadow: 0px 0px 8px 2px rgba(245, 245, 245, 1);
+}
+
+.LogIn-form h2 {
+    margin: 0 0 25px 0;
+}
+
+.LogIn-form-email {
+    text-align: center;
+    color: #6cb4d6;
+}
+
+.LogIn-form-buttons {
+    text-align: right;
+}
+
+.LogIn-form-input {
+    text-align: left;
+    margin-top: 5px;
+}
+
+.LogIn-form-row label {
+    color: #444;
+}
+
+.LogIn-form-row input {
+    font-size: 20px;
+    width: 100%;
+    height: 35px;
+    border: 1px solid #ddd;
+    margin-bottom: 25px;
+}
+
+.LogIn-button {
+    font-size: 20px;
+    font-weight: normal;
+    padding: 5px 20px;
+    background: #6cb4d6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+}
