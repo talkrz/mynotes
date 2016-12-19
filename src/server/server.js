@@ -1,5 +1,5 @@
 import errorHandler from './errorHandler';
-import storage from './../localStorage/storage';
+import authorizationHandler from './authorizationHandler';
 
 const baseUrl = 'http://localhost:3001';
 
@@ -26,25 +26,17 @@ function logIn(email, password) {
   });
 }
 
-function getBoardList() {
-  const accessCredentials = storage().getItem('accessCredentials');
-  let accessKey = false;
-  if (accessCredentials) {
-    accessKey = JSON.parse(accessCredentials).key;
-  }
-
-  if (!accessKey) {
-    return Promise.reject('Unauthorized');
-  }
-
-  return errorHandler(() => {
-    const headers = new Headers();
-    headers.append('X-Auth-Key', accessKey);
-    return fetch(`${baseUrl}/boards`, {
-      headers,
-    });
-  });
-}
+const getBoardList = () => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/boards`, {
+        headers: {
+          'X-Auth-Key': accessKey,
+        },
+      })
+    ))
+  ))
+);
 
 export default {
   validateEmail,

@@ -24,6 +24,7 @@ export const getBoardList = () => (
       })
       .catch((err) => {
         if (err === 'Unauthorized') {
+          dispatch(getBoardListError(err));
           dispatch(push('/login'));
         } else {
           throw err;
