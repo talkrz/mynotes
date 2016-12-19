@@ -11,7 +11,6 @@ import storage from './localStorage/storage';
 import './index.css';
 import mynotesReducers from './reducers';
 import { restoreAccessCredentials } from './actions/user';
-import { getBoardList } from './actions/boardList';
 
 const store = createStore(
   combineReducers({
@@ -25,7 +24,6 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 const onAppInit = (dispatch) => {
   dispatch(restoreAccessCredentials(storage()));
-  dispatch(getBoardList());
 };
 
 ReactDOM.render(

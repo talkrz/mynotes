@@ -1,12 +1,27 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { getBoardList } from './../../actions/boardList';
+import './BoardList.css';
 
-const BoardList = ({ boards }) => (
-  <div>
-    {boards.map((board, key) => (
-      <p key={key}>{board.name}</p>
-    ))}
-  </div>
-);
+class BoardList extends Component {
+
+  componentDidMount() {
+    const dispatch = this.props.dispatch;
+    dispatch(getBoardList());
+  }
+
+  render() {
+    return (
+      <div className="BoardList">
+        {this.props.boards.map((board, key) => (
+          <a className="BoardList-link" href={`/boards/${board.id}`} key={key}>
+            {board.name}
+          </a>
+        ))}
+      </div>
+    );
+  }
+}
+
 
 BoardList.propTypes = {
   boards: PropTypes.arrayOf(
@@ -17,4 +32,4 @@ BoardList.propTypes = {
   ),
 };
 
-export default BoardList
+export default BoardList;
