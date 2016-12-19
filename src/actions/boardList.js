@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import server from './../server/server';
 import { addSelfDisappearingMessage } from './messages';
 
@@ -17,10 +18,16 @@ export const getBoardListError = errorMessage => ({
 
 export const getBoardList = () => (
   (dispatch, getState) => {
-    const userState = getState().user;
-    server.getBoardList(userState)
+    server.getBoardList()
       .then((response) => {
         dispatch(getBoardListSuccess(response));
+      })
+      .catch((err) => {
+        if (err === 'Unauthorized') {
+          dispatch(push('/login'));
+        } else {
+          throw err;
+        }
       })
       .catch((err) => {
         dispatch(addSelfDisappearingMessage(err.message, 'error'));

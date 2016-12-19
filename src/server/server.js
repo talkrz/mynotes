@@ -1,19 +1,7 @@
+import errorHandler from './errorHandler';
+import storage from './../localStorage/storage';
+
 const baseUrl = 'http://localhost:3001';
-
-const generalErrorMessage = 'Server connection error';
-
-function errorHandler(call) {
-  return call()
-    .then((response) => {
-      if (response.ok === false) {
-        throw new Error(generalErrorMessage);
-      }
-      return response.json();
-    })
-    .catch(() => {
-      throw new Error(generalErrorMessage);
-    });
-}
 
 function validateEmail(email) {
   return errorHandler(() => (
@@ -38,15 +26,24 @@ function logIn(email, password) {
   });
 }
 
-function getBoardList({ accessKey }) {
-  const headers = new Headers();
-  headers.append('X-Auth-Key', accessKey);
+function getBoardList() {
+  const accessCredentials = storage().getItem('accessCredentials');
+  let accessKey = false;
+  if (accessCredentials) {
+    accessKey = JSON.parse(accessCredentials).key;
+  }
 
-  return errorHandler(() => (
-    fetch(`${baseUrl}/boards`, {
+  if (!accessKey) {
+    return Promise.reject('Unauthorized');
+  }
+
+  return errorHandler(() => {
+    const headers = new Headers();
+    headers.append('X-Auth-Key', accessKey);
+    return fetch(`${baseUrl}/boards`, {
       headers,
-    })
-  ));
+    });
+  });
 }
 
 export default {

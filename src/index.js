@@ -7,10 +7,8 @@ import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import App from './pages/App';
 import AppLoggedOut from './pages/AppLoggedOut';
-import storage from './localStorage/storage';
 import './index.css';
 import mynotesReducers from './reducers';
-import { restoreAccessCredentials } from './actions/user';
 
 const store = createStore(
   combineReducers({
@@ -22,13 +20,9 @@ const store = createStore(
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-const onAppInit = (dispatch) => {
-  dispatch(restoreAccessCredentials(storage()));
-};
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} onEnter={onAppInit(store.dispatch)}>
+    <Router history={history}>
       <Route path="/" component={App}/>
       <Route path="/login" component={AppLoggedOut}/>
     </Router>

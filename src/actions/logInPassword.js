@@ -1,7 +1,6 @@
 import { push } from 'react-router-redux';
-import { storeAccessCredentials } from './user';
+import storeAccessCredentials from './../localStorage/storeAccessCredentials';
 import server from './../server/server';
-import storage from './../localStorage/storage';
 
 export const passwordChange = password => ({
   type: 'PASSWORD_CHANGE',
@@ -41,13 +40,12 @@ export const logIn = () => (
       .then((response) => {
         if (response.userId) {
           dispatch(logInSuccess());
-          dispatch(storeAccessCredentials(storage())({
-            userId: response.userId,
-            accessKey: response.key,
+          storeAccessCredentials({
+            key: response.key,
             keyExpiresAt: response.keyExpiresAt,
             refreshKey: response.refreshKey,
             refreshKeyExpiresAt: response.refreshKeyExpiresAt,
-          }));
+          });
           dispatch(push('/'));
         } else {
           dispatch(logInError('The password is invalid'));
