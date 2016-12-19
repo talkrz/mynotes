@@ -42,15 +42,15 @@ function getBoardList({ accessKey }) {
   const headers = new Headers();
   headers.append('X-Auth-Key', accessKey);
 
-    return errorHandler(() => {
-        return fetch(`${baseUrl}/boards`, {
-            headers: headers
-        });
-    });
+  return errorHandler(() => (
+    fetch(`${baseUrl}/boards`, {
+      headers,
+    })
+  ));
 }
 
 export default {
-    validateEmail,
-    logIn,
-    getBoardList
-}
+  validateEmail,
+  logIn,
+  getBoardList,
+};

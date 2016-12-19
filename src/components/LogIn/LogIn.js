@@ -42,7 +42,7 @@ const LogIn = ({
       {currentStepComponent}
     </div>
   );
-}
+};
 
 LogIn.propTypes = {
   email: PropTypes.string.isRequired,

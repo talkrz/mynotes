@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import './LogIn.css';
 
-const LogInEmail = ({email, errorMessage, onEmailChange, onNextClick}) => {
-  const handleChange = event => {
+const LogInEmail = ({ email, errorMessage, onEmailChange, onNextClick }) => {
+  const handleChange = (event) => {
     onEmailChange(event.target.value);
   };
 
@@ -18,14 +18,14 @@ const LogInEmail = ({email, errorMessage, onEmailChange, onNextClick}) => {
         <button type="submit" className="LogIn-button" onClick={onNextClick}>Next</button>
       </div>
     </div>
-  )
+  );
 };
 
 LogInEmail.propTypes = {
   email: PropTypes.string,
   errorMessage: PropTypes.string,
   onEmailChange: PropTypes.func.isRequired,
-  onNextClick: PropTypes.func.isRequired
-}
+  onNextClick: PropTypes.func.isRequired,
+};
 
 export default LogInEmail;

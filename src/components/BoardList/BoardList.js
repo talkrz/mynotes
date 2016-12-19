@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
 
 const BoardList = ({ boards }) => (
   <div>
@@ -13,8 +13,8 @@ BoardList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-    })
-  )
-}
+    }),
+  ),
+};
 
 export default BoardList

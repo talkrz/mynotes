@@ -3,10 +3,10 @@ let tested = false;
 function storageAvailable(type) {
   tested = true;
   try {
-    const storage = window[type];
+    const localStorage = window[type];
     const x = '__storage_test__';
-    storage.setItem(x, x);
-    storage.removeItem(x);
+    localStorage.setItem(x, x);
+    localStorage.removeItem(x);
     return true;
   } catch (e) {
     return false;
@@ -18,7 +18,7 @@ function storage() {
     throw new Error('The localStorage is not available in your browser');
   }
 
-  return window['localStorage'];
+  return window.localStorage;
 }
 
 export default storage;

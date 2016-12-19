@@ -1,8 +1,15 @@
 import React, { PropTypes } from 'react';
 import './LogIn.css';
 
-const LogInPassword = ({email, password, errorMessage, onPasswordChange, onBackClick, onLoginClick}) => {
-  const handleChange = event => {
+const LogInPassword = ({
+  email,
+  password,
+  errorMessage,
+  onPasswordChange,
+  onBackClick,
+  onLoginClick,
+}) => {
+  const handleChange = (event) => {
     onPasswordChange(event.target.value);
   };
 
@@ -20,8 +27,8 @@ const LogInPassword = ({email, password, errorMessage, onPasswordChange, onBackC
         <button className="LogIn-button" onClick={onLoginClick}>Log in</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 LogInPassword.propTypes = {
   email: PropTypes.string.isRequired,
@@ -30,6 +37,6 @@ LogInPassword.propTypes = {
   onPasswordChange: PropTypes.func.isRequired,
   onBackClick: PropTypes.func.isRequired,
   onLoginClick: PropTypes.func.isRequired,
-}
+};
 
 export default LogInPassword;
