@@ -26,6 +26,23 @@ function logIn(email, password) {
   });
 }
 
+function refreshCredentials(accessCredentials) {
+  return errorHandler(() => {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+
+    return fetch(`${baseUrl}/accessKey/refresh`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        key: accessCredentials.key,
+        refreshKey: accessCredentials.refreshKey,
+      }),
+    });
+  });
+}
+
 const getBoardList = () => (
   authorizationHandler(accessKey => (
     errorHandler(() => (
@@ -41,5 +58,6 @@ const getBoardList = () => (
 export default {
   validateEmail,
   logIn,
+  refreshCredentials,
   getBoardList,
 };

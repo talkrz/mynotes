@@ -31,6 +31,7 @@ export const getBoardList = () => (
         }
       })
       .catch((err) => {
+        // the need of the logger
         dispatch(addSelfDisappearingMessage(err.message, 'error'));
         dispatch(getBoardListError(err.message));
       });

@@ -1,5 +1,6 @@
 import moment from 'moment';
-import { getAccessCredentials, removeAccessCredentials } from './../localStorage/accessCredentials';
+import { getAccessCredentials, storeAccessCredentials, removeAccessCredentials } from './../localStorage/accessCredentials';
+import server from './server';
 
 function validateAccessCredentials() {
   const accessCredentials = getAccessCredentials();
@@ -31,7 +32,12 @@ function authorizationHandler(call) {
   if (credentialsStatus === 'Unauthorized') {
     return Promise.reject('Unauthorized');
   } else if (credentialsStatus === 'Needs refresh') {
-    return Promise.reject({ message: 'Refresh session not implemented' });
+    return server.refreshCredentials(getAccessCredentials())
+      .then((newCredentials) => {
+        storeAccessCredentials(newCredentials);
+        return newCredentials;
+      })
+      .then(newCredentials => call(newCredentials.key));
   }
 
   return call(credentialsStatus);
