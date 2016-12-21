@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import App from './pages/App';
 import AppLoggedOut from './pages/AppLoggedOut';
+import Board from './components/Board/Board';
 import './index.css';
 import mynotesReducers from './reducers';
 
@@ -23,7 +24,9 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}/>
+      <Route path="/" component={App}>
+        <Route path="/boards/:boardId" component={Board}/>
+      </Route>
       <Route path="/login" component={AppLoggedOut}/>
     </Router>
   </Provider>,
