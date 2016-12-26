@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { getBoard } from './../../actions/board';
+import { getBoard, boardResized } from './../../actions/board';
+import Note from './../Note/Note';
 import './Board.css';
 
 class Board extends Component {
@@ -17,24 +18,25 @@ class Board extends Component {
     const dispatch = this.props.dispatch;
     dispatch(getBoard(this.props.routeParams.boardId));
 
+
     const boardElement = document.getElementById('Board');
-    this.setState({
-      width: boardElement.clientWidth,
-      height: boardElement.clientHeight,
-    });
+    dispatch(boardResized(
+      boardElement.clientWidth,
+      boardElement.clientHeight,
+      boardElement.offsetTop,
+      boardElement.offsetLeft,
+    ));
   }
 
   render() {
+    const viewDimensions = this.props.board.viewDimensions;
     return (
       <div id="Board" className="Board">
         {this.props.board.notes.map((note, key) => (
-          <div className="Board-note" key={key} style={{
-            backgroundColor: note.color,
-            left: note.x * this.state.width,
-            top: note.y * this.state.height,
-          }}>
-          <div className="Board-note-content">{note.content}</div>
-          </div>
+          <Note
+            key={key}
+            note={note}
+            viewDimensions={viewDimensions} />
         ))}
       </div>
     );

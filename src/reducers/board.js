@@ -2,6 +2,12 @@ const initialState = {
   notes: [],
   getInProgres: false,
   errorMessage: null,
+  viewDimensions: {
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0,
+  },
 };
 
 const board = (state = initialState, action) => {
@@ -22,6 +28,16 @@ const board = (state = initialState, action) => {
         getInProgres: false,
         errorMessage: action.errorMessage,
       });
+    case 'BOARD_RESIZED': {
+      return Object.assign({}, state, {
+        viewDimensions: {
+          width: action.width,
+          height: action.height,
+          top: action.top,
+          left: action.left,
+        },
+      });
+    }
     default:
       return state;
   }
