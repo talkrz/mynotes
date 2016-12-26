@@ -55,9 +55,22 @@ const getBoardList = () => (
   ))
 );
 
+const getBoard = boardId => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/boards/${boardId}`, {
+        headers: {
+          'X-Auth-Key': accessKey,
+        },
+      })
+    ))
+  ))
+);
+
 export default {
   validateEmail,
   logIn,
   refreshCredentials,
   getBoardList,
+  getBoard,
 };

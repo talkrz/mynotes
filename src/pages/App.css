@@ -1,4 +1,7 @@
 .App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -19,4 +22,6 @@
 }
 
 .App-content {
+  display: flex;
+  flex-grow: 1;
 }
