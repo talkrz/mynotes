@@ -11,7 +11,7 @@ class AppLoggedOut extends Component {
         <MessagesContainer />
         <div className="App-header">
           <Link className="App-logo" to="/">my notes</Link>
-          <span>Board name</span>
+          <span className="App-title">Board name</span>
         </div>
         <div className="App-content">
           {this.props.children ? this.props.children : <BoardListContainer />}
