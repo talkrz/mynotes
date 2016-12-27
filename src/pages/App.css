@@ -4,6 +4,27 @@
   flex-direction: column;
 }
 
+.btn {
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-color: #c8c8c8;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #eee;
+}
+
+.App-menu-button {
+  margin-left: 25px;
+}
+
 .App-logo {
   font-size: 30px;
   margin-left: 25px;

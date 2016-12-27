@@ -13,5 +13,21 @@
 }
 
 .Board-note-content {
-  margin: 15px;
+  margin: 20px;
+}
+
+.Board-note-edit-btn {
+  position: absolute;
+  right: 0;
+  margin: 2px 0;
+  background: none;
+  border: none;
+  opacity: 0.1;
+  color: #000;
+  font-size: 14px;
+}
+
+.Board-note-edit-btn:hover {
+  background: none;
+  opacity: 1.0;
 }

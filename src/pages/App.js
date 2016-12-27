@@ -10,6 +10,11 @@ class AppLoggedOut extends Component {
       <div className="App">
         <MessagesContainer />
         <div className="App-header">
+          <div className="App-menu-button">
+            <button className="btn">
+              <i className="fa fa-bars" aria-hidden="true"></i>
+            </button>
+          </div>
           <Link className="App-logo" to="/">my notes</Link>
           <span className="App-title">Board name</span>
         </div>

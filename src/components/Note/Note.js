@@ -18,6 +18,9 @@ class Note extends Component {
           height: dimensions.height,
           zIndex: note.z,
         }}>
+          <button className="Board-note-edit-btn btn">
+            <i className="fa fa-pencil" aria-hidden="true"></i>
+          </button>
           <div className="Board-note-content">{note.content}</div>
         </div>
       </Draggable>
