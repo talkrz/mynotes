@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './App.css';
 import MessagesContainer from './../components/Messages/MessagesContainer';
+import SideMenuContainer from './../components/SideMenu/SideMenuContainer';
 import BoardListContainer from './../components/BoardList/BoardListContainer';
 
 class AppLoggedOut extends Component {
@@ -9,6 +10,7 @@ class AppLoggedOut extends Component {
     return (
       <div className="App">
         <MessagesContainer />
+        <SideMenuContainer />
         <div className="App-header">
           <div className="App-menu-button">
             <button className="btn">
