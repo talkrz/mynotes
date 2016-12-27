@@ -25,6 +25,7 @@ const noteInitialState = {
     left: 0,
   },
   isBeingEdited: false,
+  isDraggable: true,
 };
 
 function initializeNotes(notesServerData) {
@@ -92,6 +93,20 @@ const board = (state = initialState, action) => {
       return Object.assign({}, state, {
         viewDimensions: dimensions,
         notes: calculateNotesViewDimensions(state.notes, dimensions),
+      });
+    }
+    case 'NOTE_MAKE_DRAGGABLE': {
+      const newNotes = state.notes.slice();
+      newNotes[action.noteId].isDraggable = true;
+      return Object.assign({}, state, {
+        notes: newNotes,
+      });
+    }
+    case 'NOTE_MAKE_NOT_DRAGGABLE': {
+      const newNotes = state.notes.slice();
+      newNotes[action.noteId].isDraggable = false;
+      return Object.assign({}, state, {
+        notes: newNotes,
       });
     }
     default:

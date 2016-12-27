@@ -1,5 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-import { getBoard, boardResized } from './../../actions/board';
+import {
+  getBoard,
+  boardResized,
+  noteMakeDraggable,
+  noteMakeNotDraggable } from './../../actions/board';
 import Note from './../Note/Note';
 import './Board.css';
 
@@ -29,14 +33,27 @@ class Board extends Component {
   }
 
   render() {
+    const dispatch = this.props.dispatch;
     const viewDimensions = this.props.board.viewDimensions;
+    const onMouseOverContent = noteId => (
+      () => {
+        dispatch(noteMakeNotDraggable(noteId));
+      }
+    );
+    const onMouseOutContent = noteId => (
+      () => {
+        dispatch(noteMakeDraggable(noteId));
+      }
+    );
     return (
       <div id="Board" className="Board">
         {this.props.board.notes.map((note, key) => (
           <Note
             key={key}
             note={note}
-            viewDimensions={viewDimensions} />
+            viewDimensions={viewDimensions}
+            onMouseOverContent={onMouseOverContent(key)}
+            onMouseOutContent={onMouseOutContent(key)} />
         ))}
       </div>
     );

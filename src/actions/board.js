@@ -16,14 +16,6 @@ export const getBoardError = errorMessage => ({
   errorMessage,
 });
 
-export const boardResized = (width, height, top, left) => ({
-  type: 'BOARD_RESIZED',
-  width,
-  height,
-  top,
-  left,
-});
-
 export const getBoard = boardId => (
   (dispatch, getState) => {
     server.getBoard(boardId)
@@ -45,3 +37,21 @@ export const getBoard = boardId => (
       });
   }
 );
+
+export const boardResized = (width, height, top, left) => ({
+  type: 'BOARD_RESIZED',
+  width,
+  height,
+  top,
+  left,
+});
+
+export const noteMakeDraggable = noteId => ({
+  type: 'NOTE_MAKE_DRAGGABLE',
+  noteId,
+});
+
+export const noteMakeNotDraggable = noteId => ({
+  type: 'NOTE_MAKE_NOT_DRAGGABLE',
+  noteId,
+});

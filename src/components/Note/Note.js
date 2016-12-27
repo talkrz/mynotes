@@ -9,7 +9,7 @@ class Note extends Component {
     const dimensions = this.props.note.viewDimensions;
 
     return (
-      <Draggable disabled={false}>
+      <Draggable disabled={!note.isDraggable}>
         <div id={`Board-note-${note.id}`} className="Board-note" style={{
           backgroundColor: note.color,
           left: dimensions.left,
@@ -21,7 +21,13 @@ class Note extends Component {
           <button className="Board-note-edit-btn btn">
             <i className="fa fa-pencil" aria-hidden="true"></i>
           </button>
-          <div className="Board-note-content">{note.content}</div>
+          <div
+            className="Board-note-content"
+            onMouseOver={this.props.onMouseOverContent}
+            onMouseOut={this.props.onMouseOutContent}
+          >
+            {note.content}
+          </div>
         </div>
       </Draggable>
     );
