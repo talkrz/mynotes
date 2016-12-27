@@ -16,6 +16,7 @@ class Note extends Component {
           top: dimensions.top,
           width: dimensions.width,
           height: dimensions.height,
+          zIndex: note.z,
         }}>
           <div className="Board-note-content">{note.content}</div>
         </div>
