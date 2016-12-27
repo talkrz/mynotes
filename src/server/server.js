@@ -58,7 +58,7 @@ const getBoardList = () => (
 const getBoard = boardId => (
   authorizationHandler(accessKey => (
     errorHandler(() => (
-      fetch(`${baseUrl}/boards/${boardId}`, {
+      fetch(`${baseUrl}/boards/${boardId}/notes`, {
         headers: {
           'X-Auth-Key': accessKey,
         },
