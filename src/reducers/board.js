@@ -19,8 +19,8 @@ const noteInitialState = {
   color: '#fff',
   content: '',
   viewDimensions: {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
     top: 0,
     left: 0,
   },
