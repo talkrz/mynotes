@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import App from './pages/App';
+import AppContainer from './pages/AppContainer';
 import AppLoggedOut from './pages/AppLoggedOut';
 import BoardContainer from './components/Board/BoardContainer';
 import './index.css';
@@ -24,7 +24,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={AppContainer}>
         <Route path="/boards/:boardId" component={BoardContainer}/>
       </Route>
       <Route path="/login" component={AppLoggedOut}/>

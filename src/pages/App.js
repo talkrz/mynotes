@@ -5,7 +5,7 @@ import MessagesContainer from './../components/Messages/MessagesContainer';
 import SideMenuContainer from './../components/SideMenu/SideMenuContainer';
 import BoardListContainer from './../components/BoardList/BoardListContainer';
 
-class AppLoggedOut extends Component {
+class App extends Component {
   render() {
     return (
       <div className="App">
@@ -13,7 +13,7 @@ class AppLoggedOut extends Component {
         <SideMenuContainer />
         <div className="App-header">
           <div className="App-menu-button">
-            <button className="btn">
+            <button className="btn" onClick={this.props.onMenuButtonClick}>
               <i className="fa fa-bars" aria-hidden="true"></i>
             </button>
           </div>
@@ -28,4 +28,4 @@ class AppLoggedOut extends Component {
   }
 }
 
-export default AppLoggedOut;
+export default App;

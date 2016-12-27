@@ -1,20 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { getBoardList } from './../../actions/boardList';
 import './SideMenu.css';
 
 class SideMenu extends Component {
   componentDidMount() {
-    const dispatch = this.props.dispatch;
-    dispatch(getBoardList());
+    this.props.onLoad();
   }
   render() {
     const boards = this.props.boards;
+    const visibility = this.props.sidemenuOpen ? '' : ' hidden';
     return (
-      <div className="SideMenu">
+      <div className={`SideMenu${visibility}`}>
         <div className="App-header">
           <div className="App-menu-button">
-            <button className="btn">
+            <button className="btn" onClick={this.props.onMenuButtonClick}>
               <i className="fa fa-bars" aria-hidden="true"></i>
             </button>
           </div>
@@ -38,6 +37,7 @@ SideMenu.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ),
+  sidemenuOpen: PropTypes.bool.isRequired,
 };
 
 export default SideMenu;
