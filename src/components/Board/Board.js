@@ -54,8 +54,20 @@ Board.propTypes = {
         z: PropTypes.number.isRequired,
         color: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
+        viewDimensions: PropTypes.shape({
+          width: PropTypes.number.isRequired,
+          height: PropTypes.number.isRequired,
+          top: PropTypes.number.isRequired,
+          left: PropTypes.number.isRequired,
+        }),
       }),
     ),
+    viewDimensions: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      top: PropTypes.number.isRequired,
+      left: PropTypes.number.isRequired,
+    }),
   }),
 };
 

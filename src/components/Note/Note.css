@@ -1,10 +1,7 @@
 .Board-note {
   position: absolute;
-  min-width: 180px;
-  max-width: 260px;
-  min-height: 180px;
-  max-height: 260px;
   background: #fff;
+  overflow: auto;
 
   font-size: 16px;
   word-wrap: break-word;
