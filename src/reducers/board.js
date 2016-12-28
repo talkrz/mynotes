@@ -50,7 +50,10 @@ const board = (state = initialState, action) => {
       });
     case 'GET_BOARD_SUCCESS':
       return Object.assign({}, state, {
-        notes: initializeNotes(action.board.notes),
+        notes: calculateNotesViewDimensions(
+          initializeNotes(action.board.notes),
+          state.viewDimensions,
+        ),
         getInProgres: false,
         errorMessage: null,
       });
