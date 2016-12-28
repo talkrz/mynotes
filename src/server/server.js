@@ -1,7 +1,7 @@
 import errorHandler from './errorHandler';
 import authorizationHandler from './authorizationHandler';
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://talkrz-mynotes-server.herokuapp.com';
 
 function validateEmail(email) {
   return errorHandler(() => (
