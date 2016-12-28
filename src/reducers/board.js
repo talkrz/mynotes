@@ -1,3 +1,6 @@
+import updateNoteState from './boardUtils/updateNoteState';
+import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
+
 const initialState = {
   notes: [],
   getInProgres: false,
@@ -39,29 +42,6 @@ function initializeNotes(notesServerData) {
   return notes;
 }
 
-function calculateNotesViewDimensions(notes, boardDimensions) {
-  const newNotes = [];
-  let left = 0;
-  let top = 0;
-  notes.forEach((note) => {
-    if (boardDimensions) {
-      left = note.x * (boardDimensions.width - note.viewDimensions.width) + boardDimensions.left;
-      top = note.y * (boardDimensions.height - note.viewDimensions.height) + boardDimensions.top;
-    }
-
-    const newNote = Object.assign({}, note, {
-      viewDimensions: Object.assign({}, note.viewDimensions, {
-        top,
-        left,
-      }),
-    });
-
-    newNotes.push(newNote);
-  });
-
-  return newNotes;
-}
-
 const board = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_BOARD_REQUEST':
@@ -70,10 +50,7 @@ const board = (state = initialState, action) => {
       });
     case 'GET_BOARD_SUCCESS':
       return Object.assign({}, state, {
-        notes: calculateNotesViewDimensions(
-          initializeNotes(action.board.notes),
-          state.viewDimensions,
-        ),
+        notes: initializeNotes(action.board.notes),
         getInProgres: false,
         errorMessage: null,
       });
@@ -83,7 +60,7 @@ const board = (state = initialState, action) => {
         getInProgres: false,
         errorMessage: action.errorMessage,
       });
-    case 'BOARD_RESIZED': {
+    case 'BOARD_RESIZED':
       const dimensions = {
         width: action.width,
         height: action.height,
@@ -94,21 +71,26 @@ const board = (state = initialState, action) => {
         viewDimensions: dimensions,
         notes: calculateNotesViewDimensions(state.notes, dimensions),
       });
-    }
-    case 'NOTE_MAKE_DRAGGABLE': {
-      const newNotes = state.notes.slice();
-      newNotes[action.noteId].isDraggable = true;
-      return Object.assign({}, state, {
-        notes: newNotes,
+    case 'NOTE_MAKE_DRAGGABLE':
+      return updateNoteState(state, action.noteId, { isDraggable: true });
+    case 'NOTE_MAKE_NOT_DRAGGABLE':
+      return updateNoteState(state, action.noteId, { isDraggable: false });
+    case 'NOTE_MOVE_FINISHED':
+      const boardDimensions = state.viewDimensions;
+      const note = state.notes[action.noteId];
+      const newX = action.x / (boardDimensions.width - note.viewDimensions.width);
+      const newY = action.y / (boardDimensions.height - note.viewDimensions.height);
+      return updateNoteState(state, action.noteId, {
+        x: newX,
+        y: newY,
+        viewDimensions: {
+          width: note.viewDimensions.width,
+          height: note.viewDimensions.height,
+          left: action.x,
+          top: action.y,
+        },
       });
-    }
-    case 'NOTE_MAKE_NOT_DRAGGABLE': {
-      const newNotes = state.notes.slice();
-      newNotes[action.noteId].isDraggable = false;
-      return Object.assign({}, state, {
-        notes: newNotes,
-      });
-    }
+    case 'NOTE_MOVE_STARTED':
     default:
       return state;
   }

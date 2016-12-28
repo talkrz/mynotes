@@ -5,15 +5,19 @@ import './Note.css';
 class Note extends Component {
 
   render() {
+    const noteKey = this.props.noteKey;
     const note = this.props.note;
     const dimensions = this.props.note.viewDimensions;
 
     return (
-      <Draggable disabled={!note.isDraggable}>
-        <div id={`Board-note-${note.id}`} className="Board-note" style={{
+      <Draggable
+        disabled={!note.isDraggable}
+        onStart={this.props.onMoveStart}
+        onStop={this.props.onMoveStop}
+        position={{ x: dimensions.left, y: dimensions.top }}>
+
+        <div id={`Board-note-${noteKey}`} className="Board-note" style={{
           backgroundColor: note.color,
-          left: dimensions.left,
-          top: dimensions.top,
           width: dimensions.width,
           height: dimensions.height,
           zIndex: note.z,
@@ -24,8 +28,7 @@ class Note extends Component {
           <div
             className="Board-note-content"
             onMouseOver={this.props.onMouseOverContent}
-            onMouseOut={this.props.onMouseOutContent}
-          >
+            onMouseOut={this.props.onMouseOutContent}>
             {note.content}
           </div>
         </div>
@@ -49,6 +52,7 @@ Note.propTypes = {
       top: PropTypes.number.isRequired,
       left: PropTypes.number.isRequired,
     }),
+    isDraggable: PropTypes.bool.isRequired,
   }),
   viewDimensions: PropTypes.shape({
     width: PropTypes.number.isRequired,
@@ -56,6 +60,10 @@ Note.propTypes = {
     top: PropTypes.number.isRequired,
     left: PropTypes.number.isRequired,
   }),
+  onMouseOverContent: PropTypes.func.isRequired,
+  onMouseOutContent: PropTypes.func.isRequired,
+  onMoveStart: PropTypes.func.isRequired,
+  onMoveStop: PropTypes.func.isRequired,
 };
 
 export default Note;

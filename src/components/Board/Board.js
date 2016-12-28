@@ -3,7 +3,9 @@ import {
   getBoard,
   boardResized,
   noteMakeDraggable,
-  noteMakeNotDraggable } from './../../actions/board';
+  noteMakeNotDraggable,
+  noteMoveStarted,
+  noteMove } from './../../actions/board';
 import Note from './../Note/Note';
 import './Board.css';
 
@@ -12,48 +14,73 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      width: 0,
-      height: 0,
+    const throttle = (type, name, obj) => {
+      let running = false;
+      const func = () => {
+        if (running) { return; }
+        running = true;
+        requestAnimationFrame(() => {
+          obj.dispatchEvent(new CustomEvent(name));
+          running = false;
+          // scrollbar hack
+          setTimeout(() => {
+            obj.dispatchEvent(new CustomEvent(name));
+          }, 50);
+        });
+      };
+      obj.addEventListener(type, func);
     };
+
+    throttle('resize', 'optimizedResize', window);
   }
+
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
     dispatch(getBoard(this.props.routeParams.boardId));
-
-
     const boardElement = document.getElementById('Board');
-    dispatch(boardResized(
-      boardElement.clientWidth,
-      boardElement.clientHeight,
-      boardElement.offsetTop,
-      boardElement.offsetLeft,
-    ));
+    const onResize = () => {
+      dispatch(boardResized(
+        boardElement.clientWidth,
+        boardElement.clientHeight,
+        boardElement.offsetTop,
+        boardElement.offsetLeft,
+      ));
+    };
+
+    setTimeout(onResize, 300);
+
+    window.addEventListener('optimizedResize', onResize);
   }
 
   render() {
     const dispatch = this.props.dispatch;
     const viewDimensions = this.props.board.viewDimensions;
-    const onMouseOverContent = noteId => (
-      () => {
-        dispatch(noteMakeNotDraggable(noteId));
-      }
-    );
-    const onMouseOutContent = noteId => (
-      () => {
-        dispatch(noteMakeDraggable(noteId));
-      }
-    );
+    const onMouseOverContent = noteId => (() => {
+      dispatch(noteMakeNotDraggable(noteId));
+    });
+    const onMouseOutContent = noteId => (() => {
+      dispatch(noteMakeDraggable(noteId));
+    });
+    const onMoveStart = noteId => (() => {
+      dispatch(noteMoveStarted(noteId));
+    });
+    const onMoveStop = noteId => ((e, data) => {
+      dispatch(noteMove(noteId, data.x, data.y));
+    });
+
     return (
       <div id="Board" className="Board">
         {this.props.board.notes.map((note, key) => (
           <Note
             key={key}
+            noteKey={key}
             note={note}
             viewDimensions={viewDimensions}
             onMouseOverContent={onMouseOverContent(key)}
-            onMouseOutContent={onMouseOutContent(key)} />
+            onMouseOutContent={onMouseOutContent(key)}
+            onMoveStart={onMoveStart(key)}
+            onMoveStop={onMoveStop(key)} />
         ))}
       </div>
     );

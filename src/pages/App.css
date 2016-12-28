@@ -41,6 +41,7 @@
 .App-header {
   display: flex;
   flex-direction: row;
+  z-index: 99998;
   align-items: center;
   background-color: #fff;
   height: 50px;
