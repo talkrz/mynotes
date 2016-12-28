@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import App from './App';
 import { sidemenuOpen } from './../actions/app';
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  title: state.app.title,
 });
 
 const mapDispatchToProps = dispatch => ({

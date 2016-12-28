@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import './App.css';
 import MessagesContainer from './../components/Messages/MessagesContainer';
@@ -18,7 +18,7 @@ class App extends Component {
             </button>
           </div>
           <Link className="App-logo" to="/">my notes</Link>
-          <span className="App-title">Board name</span>
+          <span className="App-title">{this.props.title}</span>
         </div>
         <div className="App-content">
           {this.props.children ? this.props.children : <BoardListContainer />}
@@ -27,5 +27,10 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  onMenuButtonClick: PropTypes.func.isRequired,
+  title: PropTypes.string,
+};
 
 export default App;

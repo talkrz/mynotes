@@ -1,5 +1,6 @@
 const initialState = {
   sidemenuOpen: false,
+  title: '',
 };
 
 const app = (state = initialState, action) => {
@@ -11,6 +12,10 @@ const app = (state = initialState, action) => {
     case 'SIDEMENU_CLOSE':
       return Object.assign({}, state, {
         sidemenuOpen: false,
+      });
+    case 'SET_TITLE':
+      return Object.assign({}, state, {
+        title: action.title,
       });
     default:
       return state;

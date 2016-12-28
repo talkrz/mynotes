@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { getBoardList } from './../../actions/boardList';
+import { setTitle } from './../../actions/app';
 import './BoardList.css';
 
 class BoardList extends Component {
@@ -7,6 +8,7 @@ class BoardList extends Component {
   componentDidMount() {
     const dispatch = this.props.dispatch;
     dispatch(getBoardList());
+    dispatch(setTitle(''));
   }
 
   render() {

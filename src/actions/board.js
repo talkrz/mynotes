@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import server from './../server/server';
 import { addSelfDisappearingMessage } from './messages';
+import { setTitle } from './app';
 
 export const getBoardRequest = () => ({
   type: 'GET_BOARD_REQUEST',
@@ -19,6 +20,10 @@ export const getBoardError = errorMessage => ({
 export const getBoard = boardId => (
   (dispatch, getState) => {
     server.getBoard(boardId)
+      .then((response) => {
+        dispatch(setTitle(response.name));
+        return server.getBoardNotes(boardId);
+      })
       .then((response) => {
         dispatch(getBoardSuccess({ notes: response }));
       })

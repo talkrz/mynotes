@@ -58,6 +58,18 @@ const getBoardList = () => (
 const getBoard = boardId => (
   authorizationHandler(accessKey => (
     errorHandler(() => (
+      fetch(`${baseUrl}/boards/${boardId}`, {
+        headers: {
+          'X-Auth-Key': accessKey,
+        },
+      })
+    ))
+  ))
+);
+
+const getBoardNotes = boardId => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
       fetch(`${baseUrl}/boards/${boardId}/notes`, {
         headers: {
           'X-Auth-Key': accessKey,
@@ -66,6 +78,7 @@ const getBoard = boardId => (
     ))
   ))
 );
+
 
 const updateNote = note => (
   authorizationHandler(accessKey => (
@@ -95,5 +108,6 @@ export default {
   refreshCredentials,
   getBoardList,
   getBoard,
+  getBoardNotes,
   updateNote,
 };
