@@ -34,10 +34,24 @@ class Board extends Component {
     throttle('resize', 'optimizedResize', window);
   }
 
+  loadBoardNotes() {
+    const dispatch = this.props.dispatch;
+    dispatch(getBoard(this.props.routeParams.boardId));
+    this.setState({
+      boardId: this.props.routeParams.boardId,
+    });
+  }
+
+  componentWillReceiveProps() {
+    if (this.state.boardId && this.state.boardId !== this.props.routeParams.boardId) {
+      console.log(this.props);
+      this.loadBoardNotes();
+    }
+  }
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
-    dispatch(getBoard(this.props.routeParams.boardId));
+    this.loadBoardNotes();
     const boardElement = document.getElementById('Board');
     const onResize = () => {
       dispatch(boardResized(
