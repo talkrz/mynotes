@@ -44,7 +44,6 @@ class Board extends Component {
 
   componentWillReceiveProps() {
     if (this.state.boardId && this.state.boardId !== this.props.routeParams.boardId) {
-      console.log(this.props);
       this.loadBoardNotes();
     }
   }
