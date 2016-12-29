@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, hashHistory } from 'react-router';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -19,11 +19,11 @@ const store = createStore(
     routing: routerReducer,
   }),
   composeEnhancers(
-    applyMiddleware(thunk, routerMiddleware(browserHistory)),
+    applyMiddleware(thunk, routerMiddleware(hashHistory)),
   ),
 );
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>

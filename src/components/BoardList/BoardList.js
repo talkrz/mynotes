@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import { getBoardList } from './../../actions/boardList';
 import { setTitle } from './../../actions/app';
 import './BoardList.css';
@@ -15,9 +16,9 @@ class BoardList extends Component {
     return (
       <div className="BoardList">
         {this.props.boards.map((board, key) => (
-          <a className="BoardList-link" href={`/boards/${board.id}`} key={key}>
+          <Link className="BoardList-link" to={`/boards/${board.id}`} key={key}>
             {board.name}
-          </a>
+          </Link>
         ))}
       </div>
     );
