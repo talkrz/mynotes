@@ -8,3 +8,24 @@ This repo contains client-side code.
 Look at the `mynotes-server` repository for the server-side code.
 
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/src/screenshot.png" width="640">
+
+## How to set up the development environment
+
+Make sure you have node installed (for now it is only tested with version 7).
+Clone this repository and enter it's directory.
+
+Type:
+```
+npm install
+npm start
+```
+
+Done! The app (in development mode) should run at http://localhost:3000
+
+## Demo
+
+Demo is available at: https://talkrz.github.io
+
+Login: `test@example.com`
+
+Password: `test`
