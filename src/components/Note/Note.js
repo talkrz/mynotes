@@ -22,7 +22,7 @@ class Note extends Component {
           height: dimensions.height,
           zIndex: note.z,
         }}>
-          <button className="Board-note-edit-btn btn">
+          <button className="Board-note-edit-btn btn" onClick={this.props.onNoteEdit}>
             <i className="fa fa-pencil" aria-hidden="true"></i>
           </button>
           <div
@@ -64,6 +64,7 @@ Note.propTypes = {
   onMouseOutContent: PropTypes.func.isRequired,
   onMoveStart: PropTypes.func.isRequired,
   onMoveStop: PropTypes.func.isRequired,
+  onNoteEdit: PropTypes.func.isRequired,
 };
 
 export default Note;

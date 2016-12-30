@@ -6,7 +6,9 @@ import {
   noteMakeNotDraggable,
   noteMoveStarted,
   noteMove } from './../../actions/board';
+import { editNote } from './../../actions/noteEditor';
 import Note from './../Note/Note';
+import NoteEditorContainer from './../NoteEditor/NoteEditorContainer';
 import './Board.css';
 
 class Board extends Component {
@@ -81,9 +83,13 @@ class Board extends Component {
     const onMoveStop = noteId => ((e, data) => {
       dispatch(noteMove(noteId, data.x, data.y));
     });
+    const onNoteEdit = noteId => (() => {
+      dispatch(editNote(noteId));
+    });
 
     return (
       <div id="Board" className="Board">
+        <NoteEditorContainer />
         {this.props.board.notes.map((note, key) => (
           <Note
             key={key}
@@ -93,7 +99,8 @@ class Board extends Component {
             onMouseOverContent={onMouseOverContent(key)}
             onMouseOutContent={onMouseOutContent(key)}
             onMoveStart={onMoveStart(key)}
-            onMoveStop={onMoveStop(key)} />
+            onMoveStop={onMoveStop(key)}
+            onNoteEdit={onNoteEdit(key)} />
         ))}
       </div>
     );

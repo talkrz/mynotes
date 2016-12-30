@@ -115,3 +115,9 @@ export const noteMove = (noteId, x, y) => (
     dispatch(noteUpdate(note));
   }
 );
+
+export const noteChangeColor = (noteId, color) => ({
+  type: 'NOTE_CHANGE_COLOR',
+  noteId,
+  color,
+});

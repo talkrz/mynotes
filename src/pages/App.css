@@ -5,8 +5,8 @@
 }
 
 .btn {
-  width: 30px;
   height: 30px;
+  min-width: 30px;
   background: #fff;
   border-color: #c8c8c8;
   border-width: 1px;

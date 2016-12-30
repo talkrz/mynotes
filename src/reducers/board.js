@@ -93,6 +93,10 @@ const board = (state = initialState, action) => {
           top: action.y,
         },
       });
+    case 'NOTE_CHANGE_COLOR':
+      return updateNoteState(state, action.noteId, {
+        color: action.color,
+      });
     case 'NOTE_MOVE_STARTED':
     default:
       return state;
