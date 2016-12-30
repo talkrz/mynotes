@@ -1,7 +1,8 @@
+import config from './../config/config.json';
 import errorHandler from './errorHandler';
 import authorizationHandler from './authorizationHandler';
 
-const baseUrl = 'https://talkrz-mynotes-server.herokuapp.com';
+const baseUrl = process.env.REACT_APP_SERVER_URL || config.serverUrl;
 
 function validateEmail(email) {
   return errorHandler(() => (
