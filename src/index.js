@@ -11,7 +11,7 @@ import BoardContainer from './components/Board/BoardContainer';
 import './index.css';
 import mynotesReducers from './reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
 
 const store = createStore(
   combineReducers({
@@ -34,5 +34,5 @@ ReactDOM.render(
       <Route path="/login" component={AppLoggedOut}/>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
