@@ -24,9 +24,10 @@ Done! The app (in development mode) should run at http://localhost:3000
 
 ### Changing the server URL
 
-You can configure the server URL for app running in dev mode without modifying
+You can configure the server URL for the development mode mode without modifying
 actual configuration file.
-Just create .env file in the project root with following env variable:
+
+Just create a `.env` file in the project root with following env variable:
 ```
 REACT_APP_SERVER_URL="http://your.server.url"
 ```
