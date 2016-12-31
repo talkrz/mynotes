@@ -28,7 +28,6 @@ const noteInitialState = {
     top: 0,
     left: 0,
   },
-  isBeingEdited: false,
   isDraggable: true,
 };
 
