@@ -28,9 +28,8 @@ class Note extends Component {
           <div
             className="Board-note-content"
             onMouseOver={this.props.onMouseOverContent}
-            onMouseOut={this.props.onMouseOutContent}>
-            {note.content}
-          </div>
+            onMouseOut={this.props.onMouseOutContent}
+            dangerouslySetInnerHTML={{ __html: note.content }} />
         </div>
       </Draggable>
     );

@@ -5,16 +5,23 @@
 }
 
 .btn {
+  display: inline-block;
+  vertical-align: middle;
   height: 30px;
   min-width: 30px;
   background: #fff;
-  border-color: #c8c8c8;
+  border-color: #ddd;
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
   outline: none;
+}
+
+.btn i {
+  margin: 0;
+  padding: 0;
 }
 
 .btn:hover {

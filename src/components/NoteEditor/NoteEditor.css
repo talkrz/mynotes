@@ -1,10 +1,14 @@
 .NoteEditor {
   position: absolute;
   display: flex;
+  flex-direction: column;
   z-index: 99995;
-  flex-direction: row;
-  top: 50px;
+  top: 25px;
   padding: 25px;
+}
+
+.NoteEditor-tools {
+  text-align: center;
 }
 
 .NoteEditor-expanded {
@@ -15,16 +19,17 @@
 
 .NoteEditor-tool {
   margin-right: 25px;
+  margin-top: 25px;
 }
 
 .NoteEditor-tool-delete {
-  margin-left: 25px;
   color: #c00;
   border-color: #c00;
 }
 
 .NoteEditor-tool-color {
   margin-right: 5px;
+  margin-top: 25px;
 }
 
 .NoteEditor-tool-color:hover {
@@ -37,4 +42,16 @@
 
 .NoteEditor-tool-last {
   margin-right: 0;
+}
+
+.NoteEditor-text-editor-container {
+  margin-top: 25px;
+}
+
+.NoteEditor-text-editor {
+  border: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  padding: 25px;
+  background-color: #fff;
 }

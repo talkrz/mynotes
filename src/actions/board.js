@@ -121,3 +121,10 @@ export const noteChangeColor = (noteId, color) => ({
   noteId,
   color,
 });
+
+
+export const noteChangeContent = (noteId, editorState) => ({
+  type: 'NOTE_CHANGE_CONTENT',
+  noteId,
+  editorState,
+});

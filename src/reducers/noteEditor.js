@@ -1,3 +1,5 @@
+import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+
 const initialState = {
   colors: [
     '#4ac7f0',
@@ -13,7 +15,15 @@ const initialState = {
   ],
   isActive: false,
   noteKey: null,
+  note: null,
+  editorState: EditorState.createEmpty(),
 };
+
+function initEditorState(note) {
+  const blocksFromHTML = convertFromHTML(note.content);
+  const state = ContentState.createFromBlockArray(blocksFromHTML);
+  return EditorState.createWithContent(state);
+}
 
 const noteEditor = (state = initialState, action) => {
   switch (action.type) {
@@ -21,11 +31,19 @@ const noteEditor = (state = initialState, action) => {
       return Object.assign({}, state, {
         isActive: true,
         noteKey: action.noteKey,
+        note: action.note,
+        editorState: initEditorState(action.note),
       });
     case 'EDIT_NOTE_DONE':
       return Object.assign({}, state, {
         isActive: false,
         noteKey: null,
+        note: null,
+        editorState: EditorState.createEmpty(),
+      });
+    case 'EDITOR_CONTENT_CHANGED':
+      return Object.assign({}, state, {
+        editorState: action.editorState,
       });
     default:
       return state;

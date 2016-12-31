@@ -84,7 +84,7 @@ class Board extends Component {
       dispatch(noteMove(noteId, data.x, data.y));
     });
     const onNoteEdit = noteId => (() => {
-      dispatch(editNote(noteId));
+      dispatch(editNote(noteId, this.props.board.notes[noteId]));
     });
 
     return (

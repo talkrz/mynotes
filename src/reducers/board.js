@@ -1,3 +1,4 @@
+import { convertToRaw } from 'draft-js';
 import updateNoteState from './boardUtils/updateNoteState';
 import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
 
@@ -40,6 +41,15 @@ function initializeNotes(notesServerData) {
   });
 
   return notes;
+}
+
+function convertEditorStateToHtml(editorState) {
+  const lines = [];
+  const content = editorState.getCurrentContent();
+  convertToRaw(content).blocks.forEach((block) => {
+    lines.push(block.text);
+  });
+  return lines.join('<br />');
 }
 
 const board = (state = initialState, action) => {
@@ -96,6 +106,10 @@ const board = (state = initialState, action) => {
     case 'NOTE_CHANGE_COLOR':
       return updateNoteState(state, action.noteId, {
         color: action.color,
+      });
+    case 'NOTE_CHANGE_CONTENT':
+      return updateNoteState(state, action.noteId, {
+        content: convertEditorStateToHtml(action.editorState),
       });
     case 'NOTE_MOVE_STARTED':
     default:
