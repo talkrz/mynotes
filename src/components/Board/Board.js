@@ -30,8 +30,15 @@ class Board extends Component {
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
-    dispatch(getBoard(this.props.routeParams.boardId));
     const boardElement = document.getElementById('Board');
+
+    dispatch(getBoard(this.props.routeParams.boardId, () => [
+      boardElement.clientWidth,
+      boardElement.clientHeight,
+      boardElement.offsetTop,
+      boardElement.offsetLeft,
+    ]));
+
     const onResize = () => {
       dispatch(boardResized(
         boardElement.clientWidth,
@@ -40,8 +47,6 @@ class Board extends Component {
         boardElement.offsetLeft,
       ));
     };
-
-    setTimeout(onResize, 300);
 
     window.addEventListener('optimizedResize', onResize);
   }

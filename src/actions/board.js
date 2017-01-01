@@ -5,6 +5,14 @@ import { addSelfDisappearingMessage } from './messages';
 import { setTitle, sidemenuClose } from './app';
 import { editNoteDone } from './noteEditor';
 
+export const boardResized = (width, height, top, left) => ({
+  type: 'BOARD_RESIZED',
+  width,
+  height,
+  top,
+  left,
+});
+
 export const getBoardRequest = () => ({
   type: 'GET_BOARD_REQUEST',
 });
@@ -19,7 +27,7 @@ export const getBoardError = errorMessage => ({
   errorMessage,
 });
 
-export const getBoard = boardId => (
+export const getBoard = (boardId, getBoardDimensions = null) => (
   (dispatch, getState) => {
     let board = null;
     server.getBoard(boardId)
@@ -31,6 +39,9 @@ export const getBoard = boardId => (
         dispatch(setTitle(response.name));
         dispatch(sidemenuClose());
         dispatch(editNoteDone());
+        if (getBoardDimensions) {
+          dispatch(boardResized(...getBoardDimensions()));
+        }
         dispatch(getBoardSuccess({
           ...board,
           notes: response,
@@ -85,14 +96,6 @@ export const saveNotesChanges = () => (
       });
   }
 );
-
-export const boardResized = (width, height, top, left) => ({
-  type: 'BOARD_RESIZED',
-  width,
-  height,
-  top,
-  left,
-});
 
 export const noteMakeDraggable = noteId => ({
   type: 'NOTE_MAKE_DRAGGABLE',
