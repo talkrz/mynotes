@@ -171,3 +171,46 @@ export const noteChangeContentAndSave = (noteId, color) => (
     dispatch(saveNotesChanges());
   }
 );
+
+export const createNoteRequest = () => ({
+  type: 'CREATE_NOTE_REQUEST',
+});
+
+export const createNoteSuccess = note => ({
+  type: 'CREATE_NOTE_SUCCESS',
+  note,
+});
+
+export const createNoteError = errorMessage => ({
+  type: 'CREATE_NOTE_ERROR',
+  errorMessage,
+});
+
+export const createNoteAndSave = (boardId, data) => (
+  (dispatch, getState) => {
+    const note = Object.assign({}, {
+      boardId,
+      x: 0.5,
+      y: 0.5,
+      z: 0,
+      color: '#ffe45c',
+    }, data);
+    dispatch(createNoteRequest());
+    server.createNote(boardId, note)
+      .then((response) => {
+        dispatch(createNoteSuccess(response));
+      })
+      .catch((err) => {
+        if (err === 'Unauthorized') {
+          dispatch(getBoardError(err));
+          dispatch(push('/login'));
+        } else {
+          throw err;
+        }
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+        dispatch(createNoteError(err.message));
+      });
+  }
+);

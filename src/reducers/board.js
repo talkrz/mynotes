@@ -1,10 +1,14 @@
 import { convertToRaw } from 'draft-js';
 import updateNoteState from './boardUtils/updateNoteState';
 import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
+import calculateNotesMaxZ from './boardUtils/calculateNotesMaxZ';
+import addNote from './boardUtils/addNote';
+import initializeNotes from './boardUtils/initializeNotes';
 
 const initialState = {
   id: null,
   notes: [],
+  notesMaxZ: 0,
   getInProgres: false,
   saveNoteChangesInProgress: false,
   errorMessage: null,
@@ -16,34 +20,6 @@ const initialState = {
   },
   pendingNotesChanges: [],
 };
-
-const noteInitialState = {
-  id: null,
-  boardId: null,
-  x: 0.0,
-  y: 0.0,
-  z: 0.0,
-  color: '#fff',
-  content: '',
-  viewDimensions: {
-    width: 200,
-    height: 200,
-    top: 0,
-    left: 0,
-  },
-  isDraggable: true,
-};
-
-function initializeNotes(notesServerData) {
-  const notes = [];
-
-  notesServerData.forEach((noteServerData) => {
-    const note = Object.assign({}, noteInitialState, noteServerData);
-    notes.push(note);
-  });
-
-  return notes;
-}
 
 function convertEditorStateToHtml(editorState) {
   const lines = [];
@@ -61,18 +37,21 @@ const board = (state = initialState, action) => {
         getInProgres: true,
       });
     case 'GET_BOARD_SUCCESS':
+      const newNotes = calculateNotesViewDimensions(
+        initializeNotes(action.board.notes),
+        state.viewDimensions,
+      );
       return Object.assign({}, state, {
         id: action.board.id,
-        notes: calculateNotesViewDimensions(
-          initializeNotes(action.board.notes),
-          state.viewDimensions,
-        ),
+        notesMaxZ: calculateNotesMaxZ(newNotes),
+        notes: newNotes,
         getInProgres: false,
         errorMessage: null,
       });
     case 'GET_BOARD_ERROR':
       return Object.assign({}, state, {
         id: null,
+        notesMaxZ: 0,
         notes: [],
         getInProgres: false,
         errorMessage: action.errorMessage,
@@ -141,6 +120,14 @@ const board = (state = initialState, action) => {
       return Object.assign({}, state, {
         pendingNotesChanges,
       });
+    case 'CREATE_NOTE_REQUEST':
+      return state;
+    case 'CREATE_NOTE_ERROR':
+      return Object.assign({}, state, {
+        errorMessage: action.errorMessage,
+      });
+    case 'CREATE_NOTE_SUCCESS':
+      return addNote(state, action.note);
     case 'NOTE_MOVE_STARTED':
     default:
       return state;

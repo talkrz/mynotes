@@ -3,11 +3,14 @@ import TextEditor from './TextEditor';
 import './NoteEditor.css';
 
 const NoteEditor = ({
+  boardId,
+  notesMaxZ,
   note,
   noteKey,
   colors,
   isActive,
   editorState,
+  createNote,
   editNoteChangeColor,
   editNoteDone,
   editorContentChanged,
@@ -17,7 +20,7 @@ const NoteEditor = ({
   return (
     <div>
       <div className={`NoteEditor${collapsedShowHide}`}>
-        <button className="btn NoteEditor-tool">
+        <button className="btn NoteEditor-tool" onClick={createNote(boardId, notesMaxZ + 1)}>
           <i className="fa fa-plus" aria-hidden="true"></i>
         </button>
       </div>
@@ -65,14 +68,17 @@ NoteEditor.propTypes = {
     y: PropTypes.number.isRequired,
     z: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    content: PropTypes.string,
   }),
   noteKey: PropTypes.number,
   colors: PropTypes.arrayOf(
     PropTypes.string.isRequired,
   ),
+  boardId: PropTypes.number,
+  notesMaxZ: PropTypes.number,
   isActive: PropTypes.bool.isRequired,
   editorState: PropTypes.object.isRequired,
+  createNote: PropTypes.func.isRequired,
   editNoteChangeColor: PropTypes.func.isRequired,
   editNoteDone: PropTypes.func.isRequired,
   editorContentChanged: PropTypes.func.isRequired,

@@ -103,6 +103,28 @@ const updateNote = note => (
   ))
 );
 
+const createNote = (boardId, note) => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/boards/${boardId}/notes`, {
+        method: 'POST',
+        headers: {
+          'X-Auth-Key': accessKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          x: note.x,
+          y: note.y,
+          z: note.z,
+          color: note.color,
+          content: note.content,
+        }),
+      })
+    ))
+  ))
+);
+
 export default {
   validateEmail,
   logIn,
@@ -111,4 +133,5 @@ export default {
   getBoard,
   getBoardNotes,
   updateNote,
+  createNote,
 };

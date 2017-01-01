@@ -44,7 +44,7 @@ Note.propTypes = {
     y: PropTypes.number.isRequired,
     z: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    content: PropTypes.string,
     viewDimensions: PropTypes.shape({
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
