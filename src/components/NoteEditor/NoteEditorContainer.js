@@ -1,31 +1,29 @@
 import { connect } from 'react-redux';
 import NoteEditor from './NoteEditor';
 import { editNoteDone, editorContentChanged } from './../../actions/noteEditor';
-import { noteChangeColor, noteChangeContent } from './../../actions/board';
+import { noteChangeColorAndSave, noteChangeContentAndSave } from './../../actions/board';
 
-const mapStateToProps = state => {
-  return {
-    note: state.noteEditor.note,
-    noteKey: state.noteEditor.noteKey,
-    colors: state.noteEditor.colors,
-    isActive: state.noteEditor.isActive,
-    editorState: state.noteEditor.editorState,
-  };
-};
+const mapStateToProps = state => ({
+  note: state.noteEditor.note,
+  noteKey: state.noteEditor.noteKey,
+  colors: state.noteEditor.colors,
+  isActive: state.noteEditor.isActive,
+  editorState: state.noteEditor.editorState,
+});
 
 const mapDispatchToProps = dispatch => ({
   editNoteDone: () => {
     dispatch(editNoteDone());
   },
   editNoteChangeColor: (noteKey, color) => (() => {
-    dispatch(noteChangeColor(noteKey, color));
+    dispatch(noteChangeColorAndSave(noteKey, color));
   }),
-  editorContentChanged: (noteKey) => {
-    return (editorState) => {
+  editorContentChanged: noteKey => (
+    (editorState) => {
       dispatch(editorContentChanged(editorState));
-      dispatch(noteChangeContent(noteKey, editorState));
+      dispatch(noteChangeContentAndSave(noteKey, editorState));
     }
-  },
+  ),
 });
 
 const NoteEditorContainer = connect(mapStateToProps, mapDispatchToProps)(NoteEditor);

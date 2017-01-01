@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
 import server from './../server/server';
+import serverSaveNotesChanges from './../server/serverSaveNotesChanges';
 import { addSelfDisappearingMessage } from './messages';
 import { setTitle } from './app';
 
@@ -42,6 +43,41 @@ export const getBoard = boardId => (
   }
 );
 
+export const saveNotesChangesRequest = () => ({
+  type: 'SAVE_NOTES_CHANGES_REQUEST',
+});
+
+export const saveNotesChangesSuccess = () => ({
+  type: 'SAVE_NOTES_CHANGES_SUCCESS',
+});
+
+export const saveNotesChangesError = errorMessage => ({
+  type: 'SAVE_NOTES_CHANGES_ERROR',
+  errorMessage,
+});
+
+export const saveNotesChanges = () => (
+  (dispatch, getState) => {
+    const changes = getState().board.pendingNotesChanges;
+    serverSaveNotesChanges(changes)
+      .then((response) => {
+        dispatch(saveNotesChangesSuccess());
+      })
+      .catch((err) => {
+        if (err === 'Unauthorized') {
+          dispatch(getBoardError(err));
+          dispatch(push('/login'));
+        } else {
+          throw err;
+        }
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+        dispatch(saveNotesChangesError(err.message));
+      });
+  }
+);
+
 export const boardResized = (width, height, top, left) => ({
   type: 'BOARD_RESIZED',
   width,
@@ -60,41 +96,12 @@ export const noteMakeNotDraggable = noteId => ({
   noteId,
 });
 
-export const noteUpdateRequest = () => ({
-  type: 'NOTE_UPDATE_REQUEST',
+export const addPendingNoteChange = (changeType, noteId, data) => ({
+  type: 'ADD_PENDING_NOTE_CHANGE',
+  changeType,
+  noteId,
+  data,
 });
-
-export const noteUpdateSuccess = note => ({
-  type: 'NOTE_UPDATE_SUCCESS',
-  note,
-});
-
-export const noteUpdateError = errorMessage => ({
-  type: 'NOTE_UPDATE_ERROR',
-  errorMessage,
-});
-
-export const noteUpdate = note => (
-  (dispatch, getState) => {
-    dispatch(noteUpdateRequest());
-    server.updateNote(note)
-      .then((response) => {
-        dispatch(noteUpdateSuccess(response));
-      })
-      .catch((err) => {
-        if (err === 'Unauthorized') {
-          dispatch(noteUpdateError(err));
-          dispatch(push('/login'));
-        } else {
-          throw err;
-        }
-      })
-      .catch((err) => {
-        dispatch(addSelfDisappearingMessage(err.message, 'error'));
-        dispatch(noteUpdateError(err.message));
-      });
-  }
-);
 
 export const noteMoveStarted = noteId => ({
   type: 'NOTE_MOVE_STARTED',
@@ -108,11 +115,15 @@ export const noteMoveFinished = (noteId, x, y) => ({
   y,
 });
 
-export const noteMove = (noteId, x, y) => (
+export const noteMoveAndSave = (noteId, x, y) => (
   (dispatch, getState) => {
     dispatch(noteMoveFinished(noteId, x, y));
     const note = getState().board.notes[noteId];
-    dispatch(noteUpdate(note));
+    dispatch(addPendingNoteChange('UPDATE', note.id, {
+      x: note.x,
+      y: note.y,
+    }));
+    dispatch(saveNotesChanges());
   }
 );
 
@@ -122,9 +133,30 @@ export const noteChangeColor = (noteId, color) => ({
   color,
 });
 
+export const noteChangeColorAndSave = (noteId, color) => (
+  (dispatch, getState) => {
+    dispatch(noteChangeColor(noteId, color));
+    const note = getState().board.notes[noteId];
+    dispatch(addPendingNoteChange('UPDATE', note.id, {
+      color,
+    }));
+    dispatch(saveNotesChanges());
+  }
+);
 
 export const noteChangeContent = (noteId, editorState) => ({
   type: 'NOTE_CHANGE_CONTENT',
   noteId,
   editorState,
 });
+
+export const noteChangeContentAndSave = (noteId, color) => (
+  (dispatch, getState) => {
+    dispatch(noteChangeContent(noteId, color));
+    const note = getState().board.notes[noteId];
+    dispatch(addPendingNoteChange('UPDATE', note.id, {
+      content: note.content,
+    }));
+    dispatch(saveNotesChanges());
+  }
+);

@@ -2,7 +2,16 @@ import React, { PropTypes } from 'react';
 import TextEditor from './TextEditor';
 import './NoteEditor.css';
 
-const NoteEditor = ({ note, noteKey, colors, isActive, editorState, editNoteChangeColor, editNoteDone, editorContentChanged }) => {
+const NoteEditor = ({
+  note,
+  noteKey,
+  colors,
+  isActive,
+  editorState,
+  editNoteChangeColor,
+  editNoteDone,
+  editorContentChanged,
+}) => {
   const expandedShowHide = isActive ? '' : ' hidden';
   const collapsedShowHide = isActive ? ' hidden' : '';
   return (

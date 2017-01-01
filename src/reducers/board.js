@@ -5,6 +5,7 @@ import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensi
 const initialState = {
   notes: [],
   getInProgres: false,
+  saveNoteChangesInProgress: false,
   errorMessage: null,
   viewDimensions: {
     width: 0,
@@ -12,6 +13,7 @@ const initialState = {
     top: 0,
     left: 0,
   },
+  pendingNotesChanges: [],
 };
 
 const noteInitialState = {
@@ -72,6 +74,21 @@ const board = (state = initialState, action) => {
         getInProgres: false,
         errorMessage: action.errorMessage,
       });
+    case 'SAVE_NOTES_CHANGES_REQUEST':
+      return Object.assign({}, state, {
+        saveNoteChangesInProgress: true,
+      });
+    case 'SAVE_NOTES_CHANGES_SUCCESS':
+      return Object.assign({}, state, {
+        pendingNotesChanges: [],
+        saveNoteChangesInProgress: false,
+        errorMessage: null,
+      });
+    case 'SAVE_NOTES_CHANGES_ERROR':
+      return Object.assign({}, state, {
+        saveNoteChangesInProgress: false,
+        errorMessage: action.errorMessage,
+      });
     case 'BOARD_RESIZED':
       const dimensions = {
         width: action.width,
@@ -109,6 +126,17 @@ const board = (state = initialState, action) => {
     case 'NOTE_CHANGE_CONTENT':
       return updateNoteState(state, action.noteId, {
         content: convertEditorStateToHtml(action.editorState),
+      });
+    case 'ADD_PENDING_NOTE_CHANGE':
+      const pendingNotesChanges = state.pendingNotesChanges.slice();
+
+      pendingNotesChanges.push({
+        changeType: action.changeType,
+        noteId: action.noteId,
+        data: action.data,
+      });
+      return Object.assign({}, state, {
+        pendingNotesChanges,
       });
     case 'NOTE_MOVE_STARTED':
     default:
