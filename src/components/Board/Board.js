@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import optimizeWindowResize from './../../utils/optimizeWindowResize';
 import {
   getBoard,
   boardResized,
@@ -15,25 +16,7 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
-
-    const throttle = (type, name, obj) => {
-      let running = false;
-      const func = () => {
-        if (running) { return; }
-        running = true;
-        requestAnimationFrame(() => {
-          obj.dispatchEvent(new CustomEvent(name));
-          running = false;
-          // scrollbar hack
-          setTimeout(() => {
-            obj.dispatchEvent(new CustomEvent(name));
-          }, 50);
-        });
-      };
-      obj.addEventListener(type, func);
-    };
-
-    throttle('resize', 'optimizedResize', window);
+    optimizeWindowResize();
   }
 
   loadBoardNotes() {
