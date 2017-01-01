@@ -11,7 +11,7 @@ class SideMenu extends Component {
     const visibility = this.props.sidemenuOpen ? '' : ' hidden';
     return (
       <div className={`SideMenu${visibility}`}>
-        <div className="App-header">
+        <div className="App-header SideMenu-header">
           <div className="App-menu-button">
             <button className="btn" onClick={this.props.onMenuButtonClick}>
               <i className="fa fa-bars" aria-hidden="true"></i>
@@ -20,11 +20,23 @@ class SideMenu extends Component {
           <Link className="App-logo" to="/">my notes</Link>
         </div>
         <div className="SideMenu-content">
-          {boards.map((board, key) => (
-            <Link className="SideMenu-link" to={`/boards/${board.id}`} key={key}>
-              {board.name}
-            </Link>
-          ))}
+          <ul className="SideMenu-list">
+            {boards.map((board, key) => (
+              <li>
+                <Link className="SideMenu-link" to={`/boards/${board.id}`} key={key}>
+                  {board.name}
+                  </Link>
+              </li>
+            ))}
+            <li className="SideMenu-separator"></li>
+            <li>
+              <Link className="SideMenu-link" to="/"><i className="fa fa-plus" aria-hidden="true"></i> Add new board</Link>
+            </li>
+            <li className="SideMenu-separator"></li>
+            <li>
+              <Link className="SideMenu-link" to="/">Logout</Link>
+            </li>
+          </ul>
         </div>
       </div>
     );
