@@ -19,23 +19,18 @@ class Board extends Component {
     optimizeWindowResize();
   }
 
-  loadBoardNotes() {
-    const dispatch = this.props.dispatch;
-    dispatch(getBoard(this.props.routeParams.boardId));
-    this.setState({
-      boardId: this.props.routeParams.boardId,
-    });
-  }
-
   componentWillReceiveProps() {
-    if (this.state.boardId && this.state.boardId !== this.props.routeParams.boardId) {
-      this.loadBoardNotes();
+    const boardState = this.props.board;
+    const newBoardId = parseInt(this.props.routeParams.boardId, 0);
+    if (boardState.id !== newBoardId) {
+      const dispatch = this.props.dispatch;
+      dispatch(getBoard(newBoardId));
     }
   }
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
-    this.loadBoardNotes();
+    dispatch(getBoard(this.props.routeParams.boardId));
     const boardElement = document.getElementById('Board');
     const onResize = () => {
       dispatch(boardResized(
@@ -92,6 +87,7 @@ class Board extends Component {
 
 Board.propTypes = {
   board: PropTypes.shape({
+    id: PropTypes.number,
     notes: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,

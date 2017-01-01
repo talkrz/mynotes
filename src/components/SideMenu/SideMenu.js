@@ -22,8 +22,8 @@ class SideMenu extends Component {
         <div className="SideMenu-content">
           <ul className="SideMenu-list">
             {boards.map((board, key) => (
-              <li>
-                <Link className="SideMenu-link" to={`/boards/${board.id}`} key={key}>
+              <li key={key}>
+                <Link className="SideMenu-link" to={`/boards/${board.id}`}>
                   {board.name}
                   </Link>
               </li>

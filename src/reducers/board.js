@@ -3,6 +3,7 @@ import updateNoteState from './boardUtils/updateNoteState';
 import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
 
 const initialState = {
+  id: null,
   notes: [],
   getInProgres: false,
   saveNoteChangesInProgress: false,
@@ -61,6 +62,7 @@ const board = (state = initialState, action) => {
       });
     case 'GET_BOARD_SUCCESS':
       return Object.assign({}, state, {
+        id: action.board.id,
         notes: calculateNotesViewDimensions(
           initializeNotes(action.board.notes),
           state.viewDimensions,
@@ -70,6 +72,7 @@ const board = (state = initialState, action) => {
       });
     case 'GET_BOARD_ERROR':
       return Object.assign({}, state, {
+        id: null,
         notes: [],
         getInProgres: false,
         errorMessage: action.errorMessage,

@@ -2,7 +2,8 @@ import { push } from 'react-router-redux';
 import server from './../server/server';
 import serverSaveNotesChanges from './../server/serverSaveNotesChanges';
 import { addSelfDisappearingMessage } from './messages';
-import { setTitle } from './app';
+import { setTitle, sidemenuClose } from './app';
+import { editNoteDone } from './noteEditor';
 
 export const getBoardRequest = () => ({
   type: 'GET_BOARD_REQUEST',
@@ -20,13 +21,20 @@ export const getBoardError = errorMessage => ({
 
 export const getBoard = boardId => (
   (dispatch, getState) => {
+    let board = null;
     server.getBoard(boardId)
       .then((response) => {
-        dispatch(setTitle(response.name));
+        board = response;
         return server.getBoardNotes(boardId);
       })
       .then((response) => {
-        dispatch(getBoardSuccess({ notes: response }));
+        dispatch(setTitle(response.name));
+        dispatch(sidemenuClose());
+        dispatch(editNoteDone());
+        dispatch(getBoardSuccess({
+          ...board,
+          notes: response,
+        }));
       })
       .catch((err) => {
         if (err === 'Unauthorized') {
