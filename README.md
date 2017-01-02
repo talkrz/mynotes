@@ -25,7 +25,7 @@ Done! The app (in development mode) should run at http://localhost:3000
 
 ### Changing the server URL
 
-You can configure the server URL for the development mode mode without modifying
+You can configure the server URL for the development mode without modifying
 actual configuration file.
 
 Just create a `.env` file in the project root with following env variable:
