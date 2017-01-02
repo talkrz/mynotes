@@ -1,34 +1,33 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import './LogIn.css';
 
-const LogInPassword = ({
-  email,
-  password,
-  errorMessage,
-  onPasswordChange,
-  onBackClick,
-  onLoginClick,
-}) => {
-  const handleChange = (event) => {
-    onPasswordChange(event.target.value);
-  };
+class LogInPassword extends Component {
+  componentDidMount() {
+    this.refs.password.focus();
+  }
 
-  return (
-    <div>
-      <div className="LogIn-form-row">
-        <p className="LogIn-form-email">{email}</p>
-        <label htmlFor="password">Enter your password:</label>
-      </div>
-      <div className="LogIn-form-row">
-        <input type="password" name="password" value={password} onChange={handleChange} />
+  render() {
+    const handleChange = (event) => {
+      this.props.onPasswordChange(event.target.value);
+    };
+
+    return (
+      <div>
+        <div className="LogIn-form-row">
+          <p className="LogIn-form-email">{this.props.email}</p>
+          <label htmlFor="password">Enter your password:</label>
         </div>
-      <div className="LogIn-form-row LogIn-form-buttons">
-        <button className="LogIn-button" onClick={onBackClick}>Back</button>
-        <button className="LogIn-button" onClick={onLoginClick}>Log in</button>
+        <div className="LogIn-form-row">
+          <input type="password" ref="password" name="password" value={this.props.password} onChange={handleChange} />
+          </div>
+        <div className="LogIn-form-row LogIn-form-buttons">
+          <button className="LogIn-button" onClick={this.props.onBackClick}>Back</button>
+          <button className="LogIn-button" onClick={this.props.onLoginClick}>Log in</button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 LogInPassword.propTypes = {
   email: PropTypes.string.isRequired,
