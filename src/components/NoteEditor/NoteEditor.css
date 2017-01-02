@@ -56,3 +56,8 @@
   min-height: 150px;
   background-color: #fff;
 }
+
+.NoteEditor .public-DraftEditorPlaceholder-root {
+  position: absolute;
+  color: #bbb;
+}
