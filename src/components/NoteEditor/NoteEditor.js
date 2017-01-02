@@ -11,6 +11,7 @@ const NoteEditor = ({
   isActive,
   editorState,
   createNote,
+  deleteNote,
   editNoteChangeColor,
   editNoteDone,
   editorContentChanged,
@@ -47,7 +48,7 @@ const NoteEditor = ({
         </div>
 
         <div className="NoteEditor-tools">
-          <button className="btn NoteEditor-tool NoteEditor-tool-delete">
+          <button className="btn NoteEditor-tool NoteEditor-tool-delete" onClick={deleteNote(note ? note.id : null)}>
             <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
 
@@ -79,6 +80,7 @@ NoteEditor.propTypes = {
   isActive: PropTypes.bool.isRequired,
   editorState: PropTypes.object.isRequired,
   createNote: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
   editNoteChangeColor: PropTypes.func.isRequired,
   editNoteDone: PropTypes.func.isRequired,
   editorContentChanged: PropTypes.func.isRequired,

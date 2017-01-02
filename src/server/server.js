@@ -125,6 +125,21 @@ const createNote = (boardId, note) => (
   ))
 );
 
+const deleteNote = noteId => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Auth-Key': accessKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      })
+    ))
+  ))
+);
+
 export default {
   validateEmail,
   logIn,
@@ -134,4 +149,5 @@ export default {
   getBoardNotes,
   updateNote,
   createNote,
+  deleteNote,
 };

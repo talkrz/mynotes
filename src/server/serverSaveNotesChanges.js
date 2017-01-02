@@ -14,6 +14,8 @@ function saveChange({ changeType, noteId, data }) {
         id: noteId,
         ...data,
       });
+    case 'DELETE':
+      return server.deleteNote(noteId);
     default:
       return Promise.resolve();
   }

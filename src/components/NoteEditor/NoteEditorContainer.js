@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
 import NoteEditor from './NoteEditor';
 import { editNoteDone, editorContentChanged } from './../../actions/noteEditor';
-import { noteChangeColorAndSave, noteChangeContentAndSave, createNoteAndSave } from './../../actions/board';
+import {
+  noteChangeColorAndSave,
+  noteChangeContentAndSave,
+  createNoteAndSave,
+  deleteNoteAndSave,
+} from './../../actions/board';
 
 const mapStateToProps = state => ({
   boardId: state.board.id,
@@ -18,6 +23,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createNoteAndSave(boardId, {
       z,
     }));
+  }),
+  deleteNote: noteId => (() => {
+    if (noteId) {
+      dispatch(deleteNoteAndSave(noteId));
+    }
   }),
   editNoteDone: () => {
     dispatch(editNoteDone());

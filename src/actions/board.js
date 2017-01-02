@@ -214,3 +214,17 @@ export const createNoteAndSave = (boardId, data) => (
       });
   }
 );
+
+export const deleteNote = noteId => ({
+  type: 'NOTE_DELETE',
+  noteId,
+});
+
+export const deleteNoteAndSave = (noteId, color) => (
+  (dispatch) => {
+    dispatch(deleteNote(noteId, color));
+    dispatch(addPendingNoteChange('DELETE', noteId));
+    dispatch(saveNotesChanges());
+    dispatch(editNoteDone());
+  }
+);

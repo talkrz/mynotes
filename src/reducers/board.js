@@ -86,6 +86,8 @@ const board = (state = initialState, action) => {
       return updateNoteState(state, action.noteId, { isDraggable: true });
     case 'NOTE_MAKE_NOT_DRAGGABLE':
       return updateNoteState(state, action.noteId, { isDraggable: false });
+    case 'NOTE_MOVE_STARTED':
+      return state;
     case 'NOTE_MOVE_FINISHED':
       const boardDimensions = state.viewDimensions;
       const note = state.notes[action.noteId];
@@ -128,7 +130,10 @@ const board = (state = initialState, action) => {
       });
     case 'CREATE_NOTE_SUCCESS':
       return addNote(state, action.note);
-    case 'NOTE_MOVE_STARTED':
+    case 'NOTE_DELETE':
+      return Object.assign({}, state, {
+        notes: state.notes.filter(n => (n.id !== action.noteId)),
+      });
     default:
       return state;
   }
