@@ -31,3 +31,31 @@
   background: none;
   opacity: 1.0;
 }
+
+@media (max-width: 800px) {
+  .Board-note {
+    font-size: 14px;
+  }
+
+  .Board-note-content {
+    margin: 20px;
+  }
+
+  .Board-note-edit-btn {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .Board-note {
+    font-size: 8px;
+  }
+
+  .Board-note-content {
+    margin: 12px;
+  }
+
+  .Board-note-edit-btn {
+    font-size: 8px;
+  }
+}

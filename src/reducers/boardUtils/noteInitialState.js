@@ -1,4 +1,4 @@
-const noteInitialState = () => ({
+const noteInitialState = (scale = 1.0) => ({
   id: null,
   boardId: null,
   x: 0.0,
@@ -7,8 +7,8 @@ const noteInitialState = () => ({
   color: '#fff',
   content: '',
   viewDimensions: {
-    width: 200,
-    height: 200,
+    width: 200 * scale,
+    height: 200 * scale,
     top: 0,
     left: 0,
   },

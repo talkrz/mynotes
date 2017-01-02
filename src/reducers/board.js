@@ -17,6 +17,7 @@ const initialState = {
     top: 0,
     left: 0,
   },
+  scale: 1.0,
   pendingNotesChanges: [],
 };
 
@@ -28,7 +29,7 @@ const board = (state = initialState, action) => {
       });
     case 'GET_BOARD_SUCCESS':
       const newNotes = calculateNotesViewDimensions(
-        initializeNotes(action.board.notes),
+        initializeNotes(action.board.notes, state.scale),
         state.viewDimensions,
       );
       return Object.assign({}, state, {
@@ -68,8 +69,13 @@ const board = (state = initialState, action) => {
         top: action.top,
         left: action.left,
       };
+      /** @todo: fix this */
+      const minD = Math.min(action.width, action.height);
+      const diff = 700 - minD;
+      const scale = (diff > 0) ? ((minD) / 700) : 1.0
       return Object.assign({}, state, {
         viewDimensions: dimensions,
+        scale,
         notes: calculateNotesViewDimensions(state.notes, dimensions),
       });
     case 'NOTE_MAKE_DRAGGABLE':

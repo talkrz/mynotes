@@ -5,7 +5,7 @@ import initializeNotes from './initializeNotes';
 
 function addNote(state, note) {
   const newNotes = state.notes.slice();
-  const newNote = Object.assign({}, noteInitialState(), note);
+  const newNote = Object.assign({}, noteInitialState(state.scale), note);
   newNotes.push(newNote);
   return Object.assign({}, state, {
     notesMaxZ: calculateNotesMaxZ(newNotes),
