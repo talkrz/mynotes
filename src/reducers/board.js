@@ -1,4 +1,3 @@
-import { convertToRaw } from 'draft-js';
 import updateNoteState from './boardUtils/updateNoteState';
 import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
 import calculateNotesMaxZ from './boardUtils/calculateNotesMaxZ';
@@ -20,15 +19,6 @@ const initialState = {
   },
   pendingNotesChanges: [],
 };
-
-function convertEditorStateToHtml(editorState) {
-  const lines = [];
-  const content = editorState.getCurrentContent();
-  convertToRaw(content).blocks.forEach((block) => {
-    lines.push(block.text);
-  });
-  return lines.join('<br />');
-}
 
 const board = (state = initialState, action) => {
   switch (action.type) {
@@ -109,7 +99,7 @@ const board = (state = initialState, action) => {
       });
     case 'NOTE_CHANGE_CONTENT':
       return updateNoteState(state, action.noteId, {
-        content: convertEditorStateToHtml(action.editorState),
+        content: action.content,
       });
     case 'ADD_PENDING_NOTE_CHANGE':
       const pendingNotesChanges = state.pendingNotesChanges.slice();

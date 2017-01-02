@@ -1,9 +1,19 @@
 import { push } from 'react-router-redux';
+import { convertToRaw } from 'draft-js';
 import server from './../server/server';
 import serverSaveNotesChanges from './../server/serverSaveNotesChanges';
 import { addSelfDisappearingMessage } from './messages';
 import { setTitle, sidemenuClose } from './app';
 import { editNoteDone } from './noteEditor';
+
+function convertEditorStateToHtml(editorState) {
+  const lines = [];
+  const content = editorState.getCurrentContent();
+  convertToRaw(content).blocks.forEach((block) => {
+    lines.push(block.text);
+  });
+  return lines.join('<br />');
+}
 
 export const boardResized = (width, height, top, left) => ({
   type: 'BOARD_RESIZED',
@@ -155,18 +165,25 @@ export const noteChangeColorAndSave = (noteId, color) => (
   }
 );
 
-export const noteChangeContent = (noteId, editorState) => ({
+export const noteChangeContent = (noteId, content) => ({
   type: 'NOTE_CHANGE_CONTENT',
   noteId,
-  editorState,
+  content,
 });
 
-export const noteChangeContentAndSave = (noteId, color) => (
+export const noteChangeContentAndSave = (noteId, editorState) => (
   (dispatch, getState) => {
-    dispatch(noteChangeContent(noteId, color));
+    const newContent = convertEditorStateToHtml(editorState);
     const note = getState().board.notes[noteId];
+
+    if (note.content === newContent) {
+      return;
+    }
+
+    dispatch(noteChangeContent(noteId, newContent));
+
     dispatch(addPendingNoteChange('UPDATE', note.id, {
-      content: note.content,
+      content: newContent,
     }));
     dispatch(saveNotesChanges());
   }
