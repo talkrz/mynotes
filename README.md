@@ -8,7 +8,7 @@ This repo contains client-side code.
 Look at the `mynotes-server` repository for the server-side code.
 
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/desktop.png" width="800">
-<img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/mobile.png" height="640">
+<img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/mobile.png" height="480">
 
 ## How to set up the development environment
 
