@@ -1,10 +1,15 @@
+/**
+ * Get max z position across the notes
+ * @param  {Array} notes notes objects
+ * @return {number}      max z value
+ */
 function calculateNotesMaxZ(notes) {
-  let maxZ = 0;
-  notes.forEach((note) => {
-    if (note.z > maxZ) {
-      maxZ = note.z;
+  return notes.reduce((previous, current) => {
+    if (current.z > previous) {
+      return current.z;
     }
-  });
-  return maxZ;
+    return previous;
+  }, 0);
 }
+
 export default calculateNotesMaxZ;
