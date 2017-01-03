@@ -1,5 +1,6 @@
 import updateNoteState from './board/updateNoteState';
 import addNote from './board/addNote';
+import moveNote from './board/moveNote';
 import showNotes from './board/showNotes';
 import resizeBoard from './board/resizeBoard';
 
@@ -65,20 +66,7 @@ const board = (state = initialState, action) => {
     case 'NOTE_MOVE_STARTED':
       return state;
     case 'NOTE_MOVE_FINISHED':
-      const boardDimensions = state.viewDimensions;
-      const note = state.notes[action.noteId];
-      const newX = action.x / (boardDimensions.width - note.viewDimensions.width);
-      const newY = action.y / (boardDimensions.height - note.viewDimensions.height);
-      return updateNoteState(state, action.noteId, {
-        x: newX,
-        y: newY,
-        viewDimensions: {
-          width: note.viewDimensions.width,
-          height: note.viewDimensions.height,
-          left: action.x,
-          top: action.y,
-        },
-      });
+      return moveNote(state, action.noteId, action.x, action.y);
     case 'NOTE_CHANGE_COLOR':
       return updateNoteState(state, action.noteId, {
         color: action.color,
