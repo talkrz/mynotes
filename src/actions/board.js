@@ -15,6 +15,10 @@ function convertEditorStateToHtml(editorState) {
   return lines.join('<br />');
 }
 
+export const resetBoard = () => ({
+  type: 'RESET_BOARD',
+});
+
 export const boardResized = (width, height, top, left) => ({
   type: 'BOARD_RESIZED',
   width,

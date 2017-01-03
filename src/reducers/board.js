@@ -23,6 +23,8 @@ const initialState = {
 
 const board = (state = initialState, action) => {
   switch (action.type) {
+    case 'RESET_BOARD':
+      return initialState;
     case 'GET_BOARD_REQUEST':
       return Object.assign({}, state, {
         getInProgres: true,

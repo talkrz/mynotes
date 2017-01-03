@@ -34,7 +34,7 @@ class SideMenu extends Component {
             </li>
             <li className="SideMenu-separator"></li>
             <li>
-              <Link className="SideMenu-link" to="/">Logout</Link>
+              <a className="SideMenu-link" onClick={(e) => { e.preventDefault(); this.props.onLogout(); }} href="#">Logout</a>
             </li>
           </ul>
         </div>

@@ -46,6 +46,7 @@ export const logIn = () => (
             refreshKey: response.refreshKey,
             refreshKeyExpiresAt: response.refreshKeyExpiresAt,
           });
+          dispatch(resetLoginProcess());
           dispatch(push('/'));
         } else {
           dispatch(logInError('The password is invalid'));

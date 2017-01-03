@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SideMenu from './SideMenu';
-import { sidemenuClose } from './../../actions/app';
+import { sidemenuClose, logout } from './../../actions/app';
 import { getBoardList } from './../../actions/boardList';
 
 const mapStateToProps = state => ({
@@ -14,6 +14,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onLoad: () => {
     dispatch(getBoardList());
+  },
+  onLogout: () => {
+    dispatch(logout());
   },
 });
 
