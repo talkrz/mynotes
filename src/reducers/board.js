@@ -27,7 +27,7 @@ const board = (state = initialState, action) => {
         getInProgres: true,
       });
     case 'GET_BOARD_SUCCESS':
-      return showNotes(state, action.board, state.scale);
+      return showNotes(state, action.board);
     case 'GET_BOARD_ERROR':
       return Object.assign({}, state, {
         id: null,
