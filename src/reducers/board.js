@@ -1,7 +1,7 @@
 import updateNoteState from './boardUtils/updateNoteState';
-import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
 import addNote from './boardUtils/addNote';
 import showNotes from './boardUtils/showNotes';
+import resizeBoard from './boardUtils/resizeBoard';
 
 const initialState = {
   id: null,
@@ -52,20 +52,11 @@ const board = (state = initialState, action) => {
         errorMessage: action.errorMessage,
       });
     case 'BOARD_RESIZED':
-      const dimensions = {
+      return resizeBoard(state, {
         width: action.width,
         height: action.height,
         top: action.top,
         left: action.left,
-      };
-      /** @todo: fix this */
-      const minD = Math.min(action.width, action.height);
-      const diff = 700 - minD;
-      const scale = (diff > 0) ? ((minD) / 700) : 1.0
-      return Object.assign({}, state, {
-        viewDimensions: dimensions,
-        scale,
-        notes: calculateNotesViewDimensions(state.notes, dimensions),
       });
     case 'NOTE_MAKE_DRAGGABLE':
       return updateNoteState(state, action.noteId, { isDraggable: true });
