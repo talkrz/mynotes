@@ -1,8 +1,7 @@
 import updateNoteState from './boardUtils/updateNoteState';
 import calculateNotesViewDimensions from './boardUtils/calculateNotesViewDimensions';
-import calculateNotesMaxZ from './boardUtils/calculateNotesMaxZ';
 import addNote from './boardUtils/addNote';
-import initializeNotes from './boardUtils/initializeNotes';
+import showNotes from './boardUtils/showNotes';
 
 const initialState = {
   id: null,
@@ -28,17 +27,7 @@ const board = (state = initialState, action) => {
         getInProgres: true,
       });
     case 'GET_BOARD_SUCCESS':
-      const newNotes = calculateNotesViewDimensions(
-        initializeNotes(action.board.notes, state.scale),
-        state.viewDimensions,
-      );
-      return Object.assign({}, state, {
-        id: action.board.id,
-        notesMaxZ: calculateNotesMaxZ(newNotes),
-        notes: newNotes,
-        getInProgres: false,
-        errorMessage: null,
-      });
+      return showNotes(state, action.board, state.scale);
     case 'GET_BOARD_ERROR':
       return Object.assign({}, state, {
         id: null,
