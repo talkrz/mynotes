@@ -50,7 +50,7 @@ export const getBoard = (boardId, getBoardDimensions = null) => (
         return server.getBoardNotes(boardId);
       })
       .then((response) => {
-        dispatch(setTitle(response.name));
+        dispatch(setTitle(board.name));
         dispatch(sidemenuClose());
         dispatch(editNoteDone());
         if (getBoardDimensions) {
