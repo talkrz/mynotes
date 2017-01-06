@@ -19,7 +19,7 @@ const initialState = {
 };
 
 function initEditorState(content) {
-  const blocksFromHTML = convertFromHTML(content);
+  const blocksFromHTML = convertFromHTML(content !== null ? content : '');
   const state = ContentState.createFromBlockArray(blocksFromHTML);
   return EditorState.createWithContent(state);
 }
