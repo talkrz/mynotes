@@ -1,7 +1,7 @@
-export const editNote = (noteKey, note) => ({
+export const editNote = (noteKey, content) => ({
   type: 'EDIT_NOTE',
   noteKey,
-  note,
+  content,
 });
 
 export const editNoteDone = () => ({

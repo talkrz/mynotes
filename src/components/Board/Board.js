@@ -66,8 +66,8 @@ class Board extends Component {
     const onMoveStop = noteId => ((e, data) => {
       dispatch(noteMoveAndSave(noteId, data.x, data.y));
     });
-    const onNoteEdit = noteId => (() => {
-      dispatch(editNote(noteId, this.props.board.notes[noteId]));
+    const onNoteEdit = (noteKey, noteContent) => (() => {
+      dispatch(editNote(noteKey, noteContent));
     });
 
     return (
@@ -83,7 +83,7 @@ class Board extends Component {
             onMouseOutContent={onMouseOutContent(key)}
             onMoveStart={onMoveStart(key)}
             onMoveStop={onMoveStop(key)}
-            onNoteEdit={onNoteEdit(key)} />
+            onNoteEdit={onNoteEdit(key, note.content)} />
         ))}
       </div>
     );

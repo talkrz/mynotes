@@ -15,12 +15,11 @@ const initialState = {
   ],
   isActive: false,
   noteKey: null,
-  note: null,
   editorState: EditorState.createEmpty(),
 };
 
-function initEditorState(note) {
-  const blocksFromHTML = convertFromHTML(note.content ? note.content : '');
+function initEditorState(content) {
+  const blocksFromHTML = convertFromHTML(content);
   const state = ContentState.createFromBlockArray(blocksFromHTML);
   return EditorState.createWithContent(state);
 }
@@ -31,14 +30,12 @@ const noteEditor = (state = initialState, action) => {
       return Object.assign({}, state, {
         isActive: true,
         noteKey: action.noteKey,
-        note: action.note,
-        editorState: initEditorState(action.note),
+        editorState: initEditorState(action.content),
       });
     case 'EDIT_NOTE_DONE':
       return Object.assign({}, state, {
         isActive: false,
         noteKey: null,
-        note: null,
         editorState: EditorState.createEmpty(),
       });
     case 'EDITOR_CONTENT_CHANGED':
