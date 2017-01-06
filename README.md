@@ -35,7 +35,7 @@ REACT_APP_SERVER_URL="http://your.server.url"
 
 ## Demo
 
-Demo is available at: https://talkrz.github.io
+Demo is available at: https://talkrz.github.io/notes
 
 Login: `test@example.com`
 

@@ -1,6 +1,7 @@
 {
   "name": "mynotes",
   "version": "0.1.0",
+  "homepage": "https://talkrz.github.io/notes",
   "devDependencies": {
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
