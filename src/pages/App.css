@@ -39,11 +39,13 @@
   padding-bottom: 7px;
   font-family: 'Yellowtail', cursive;
   text-decoration: none;
+  white-space: nowrap;
   color: #6cb4d6;
 }
 
 .App-title {
   margin-left: 25px;
+  white-space: nowrap;
 }
 
 .App-header {
