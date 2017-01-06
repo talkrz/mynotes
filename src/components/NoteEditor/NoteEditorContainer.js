@@ -11,7 +11,7 @@ import {
 const mapStateToProps = state => ({
   boardId: state.board.id,
   notesMaxZ: state.board.notesMaxZ,
-  note: state.noteEditor.noteKey ? state.board.notes[state.noteEditor.noteKey] : null,
+  note: (state.noteEditor.noteKey !== null) ? state.board.notes[state.noteEditor.noteKey] : null,
   noteKey: state.noteEditor.noteKey,
   colors: state.noteEditor.colors,
   isActive: state.noteEditor.isActive,
