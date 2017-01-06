@@ -30,7 +30,7 @@ class Board extends Component {
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
-    const boardElement = document.getElementById('Board');
+    const boardElement = this.boardEl;
 
     dispatch(getBoard(this.props.routeParams.boardId, () => [
       boardElement.clientWidth,
@@ -71,7 +71,7 @@ class Board extends Component {
     });
 
     return (
-      <div id="Board" className="Board">
+      <div id="Board" className="Board" ref={(board) => { this.boardEl = board; }}>
         <NoteEditorContainer />
         {this.props.board.notes.map((note, key) => (
           <Note
