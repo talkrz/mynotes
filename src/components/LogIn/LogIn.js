@@ -12,7 +12,7 @@ const LogIn = ({
   onPasswordChange,
   onBackClick,
   onNextClick,
-  onLoginClick
+  onLoginClick,
 }) => {
   let message = '';
   if (errorMessage) {

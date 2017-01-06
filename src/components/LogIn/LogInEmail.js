@@ -17,7 +17,7 @@ class LogInEmail extends Component {
           <label htmlFor="email">Enter your email:</label>
         </div>
         <div className="LogIn-form-row LogIn-form-input">
-          <input type="text" name="email" ref="email" value={this.props.email} onChange={handleChange} />
+          <input type="email" name="email" ref="email" value={this.props.email} onChange={handleChange} />
         </div>
         <div className="LogIn-form-row LogIn-form-buttons">
           <button type="submit" className="LogIn-button" onClick={this.props.onNextClick}>Next</button>
