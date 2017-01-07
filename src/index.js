@@ -9,13 +9,13 @@ import AppContainer from './pages/AppContainer';
 import AppLoggedOut from './pages/AppLoggedOut';
 import BoardContainer from './components/Board/BoardContainer';
 import './index.css';
-import mynotesReducers from './reducers';
+import reducers from './redux/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
 
 const store = createStore(
   combineReducers({
-    ...mynotesReducers,
+    ...reducers,
     routing: routerReducer,
   }),
   composeEnhancers(
