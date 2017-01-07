@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SideMenu from './SideMenu';
-import { sidemenuClose, logout } from './../../actions/app';
+import { sidemenuClose, logout } from './../../redux/app/actions';
 import { getBoardList } from './../../redux/boardList/actions';
 
 const mapStateToProps = state => ({

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getBoardList } from './../../redux/boardList/actions';
-import { setTitle } from './../../actions/app';
+import { setTitle } from './../../redux/app/actions';
 import './BoardList.css';
 
 class BoardList extends Component {

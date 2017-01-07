@@ -1,4 +1,4 @@
-import app from './app';
+import app from '././../redux/app/reducer';
 import logIn from './logIn';
 import messages from './messages';
 import boardList from './../redux/boardList/reducer';
