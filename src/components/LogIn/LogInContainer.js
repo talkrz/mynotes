@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import LogIn from './LogIn';
-import { emailChange, validateEmail } from './../../actions/logInEmail';
-import { passwordChange, resetLoginProcess, logIn } from './../../actions/logInPassword';
+import { emailChange, validateEmail } from './../../redux/logIn/actionsEmail';
+import { passwordChange, resetLoginProcess, logIn } from './../../redux/logIn/actionsPassword';
 
 const mapStateToProps = state => ({
   email: state.logIn.email,

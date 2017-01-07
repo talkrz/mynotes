@@ -2,9 +2,9 @@ import { push } from 'react-router-redux';
 import { convertToRaw } from 'draft-js';
 import server from './../../server/server';
 import serverSaveNotesChanges from './../../server/serverSaveNotesChanges';
-import { addSelfDisappearingMessage } from './../../actions/messages';
+import { addSelfDisappearingMessage } from './../messages/actions';
 import { setTitle, sidemenuClose } from './../app/actions';
-import { editNoteDone } from './../../actions/noteEditor';
+import { editNoteDone } from './../noteEditor/actions';
 
 function convertEditorStateToHtml(editorState) {
   const lines = [];

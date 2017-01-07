@@ -1,4 +1,4 @@
-import server from './../server/server';
+import server from './../../server/server';
 
 export const emailChange = email => ({
   type: 'EMAIL_CHANGE',

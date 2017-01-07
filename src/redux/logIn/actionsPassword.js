@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
-import { storeAccessCredentials } from './../localStorage/accessCredentials';
-import server from './../server/server';
+import { storeAccessCredentials } from './../../localStorage/accessCredentials';
+import server from './../../server/server';
 
 export const passwordChange = password => ({
   type: 'PASSWORD_CHANGE',

@@ -7,7 +7,7 @@ import {
   noteMakeNotDraggable,
   noteMoveStarted,
   noteMoveAndSave } from './../../redux/board/actions';
-import { editNote } from './../../actions/noteEditor';
+import { editNote } from './../../redux/noteEditor/actions';
 import Note from './../Note/Note';
 import NoteEditorContainer from './../NoteEditor/NoteEditorContainer';
 import './Board.css';

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NoteEditor from './NoteEditor';
-import { editNoteDone, editorContentChanged } from './../../actions/noteEditor';
+import { editNoteDone, editorContentChanged } from './../../redux/noteEditor/actions';
 import {
   noteChangeColorAndSave,
   noteChangeContentAndSave,
