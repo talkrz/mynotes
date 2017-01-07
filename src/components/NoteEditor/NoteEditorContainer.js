@@ -6,7 +6,7 @@ import {
   noteChangeContentAndSave,
   createNoteAndSave,
   deleteNoteAndSave,
-} from './../../actions/board';
+} from './../../redux/board/actions';
 
 const mapStateToProps = state => ({
   boardId: state.board.id,

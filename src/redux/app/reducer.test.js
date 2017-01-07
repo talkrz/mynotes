@@ -1,7 +1,7 @@
-import { expect } from 'chai';
+import { expect } from 'chai'; // eslint-disable-line
 import reducer from './reducer';
 
-describe('Reducers :: board list', () => {
+describe('Reducers :: app', () => {
   it('Should return proper initial state', () => {
     expect(reducer(undefined, {})).to.be.deep.equal({
       sidemenuOpen: false,

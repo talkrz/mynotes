@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import { removeAccessCredentials } from './../../localStorage/accessCredentials';
-import { resetBoard } from './../../actions/board';
+import { resetBoard } from './../board/actions';
 
 export const sidemenuOpen = () => ({
   type: 'SIDEMENU_OPEN',

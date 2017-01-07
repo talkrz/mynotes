@@ -1,8 +1,8 @@
-import updateNoteState from './board/updateNoteState';
-import addNote from './board/addNote';
-import moveNote from './board/moveNote';
-import showNotes from './board/showNotes';
-import resizeBoard from './board/resizeBoard';
+import updateNoteState from './updateNoteState';
+import addNote from './addNote';
+import moveNote from './moveNote';
+import showNotes from './showNotes';
+import resizeBoard from './resizeBoard';
 
 const initialState = {
   id: null,

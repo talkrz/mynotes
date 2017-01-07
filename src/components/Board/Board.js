@@ -6,7 +6,7 @@ import {
   noteMakeDraggable,
   noteMakeNotDraggable,
   noteMoveStarted,
-  noteMoveAndSave } from './../../actions/board';
+  noteMoveAndSave } from './../../redux/board/actions';
 import { editNote } from './../../actions/noteEditor';
 import Note from './../Note/Note';
 import NoteEditorContainer from './../NoteEditor/NoteEditorContainer';

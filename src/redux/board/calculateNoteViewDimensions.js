@@ -9,7 +9,7 @@ function calculateNoteViewDimensions(note, boardDimensions) {
   let left = 0;
   let top = 0;
 
-  if (boardDimensions) {
+  if (boardDimensions && boardDimensions.width && boardDimensions.height) {
     left = note.x * (boardDimensions.width - note.viewDimensions.width);
     top = note.y * (boardDimensions.height - note.viewDimensions.height);
   }
