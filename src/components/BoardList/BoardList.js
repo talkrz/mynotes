@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { getBoardList } from './../../actions/boardList';
+import { getBoardList } from './../../redux/boardList/actions';
 import { setTitle } from './../../actions/app';
 import './BoardList.css';
 

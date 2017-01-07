@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
-import server from './../server/server';
-import { addSelfDisappearingMessage } from './messages';
+import server from './../../server/server';
+import { addSelfDisappearingMessage } from './../../actions/messages';
 
 export const getBoardListRequest = () => ({
   type: 'GET_BOARD_LIST_REQUEST',

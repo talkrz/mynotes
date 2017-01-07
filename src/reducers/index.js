@@ -1,7 +1,7 @@
 import app from './app';
 import logIn from './logIn';
 import messages from './messages';
-import boardList from './boardList';
+import boardList from './../redux/boardList/reducer';
 import board from './board';
 import noteEditor from './noteEditor';
 
