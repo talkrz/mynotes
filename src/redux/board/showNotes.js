@@ -1,5 +1,5 @@
 import calculateNotesMaxZ from './calculateNotesMaxZ';
-import initializeNotes from './initializeNotes';
+import initializeNotes from './note/initializeNotes';
 import calculateNotesViewDimensions from './calculateNotesViewDimensions';
 
 /**

@@ -1,6 +1,6 @@
 import calculateNotesMaxZ from './calculateNotesMaxZ';
 import calculateNoteViewDimensions from './calculateNoteViewDimensions';
-import noteInitialState from './noteInitialState';
+import noteInitialState from './note/noteInitialState';
 
 /**
  * Add new note to board state
