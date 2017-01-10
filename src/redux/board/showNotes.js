@@ -10,7 +10,7 @@ import calculateNotesViewDimensions from './calculateNotesViewDimensions';
  */
 function showNotes(state, board) {
   const newNotes = calculateNotesViewDimensions(
-    initializeNotes(board.notes, state.scale),
+    initializeNotes(board.notes),
     state.viewDimensions,
   );
   return Object.assign({}, state, {

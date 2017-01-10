@@ -1,4 +1,4 @@
-import calculateNoteViewDimensions from './calculateNoteViewDimensions';
+import calculateNoteViewDimensions from './note/calculateNoteViewDimensions';
 
 /**
  * Calculate notes view position

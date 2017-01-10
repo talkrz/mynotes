@@ -1,5 +1,5 @@
 import calculateNotesMaxZ from './calculateNotesMaxZ';
-import calculateNoteViewDimensions from './calculateNoteViewDimensions';
+import calculateNoteViewDimensions from './note/calculateNoteViewDimensions';
 import noteInitialState from './note/noteInitialState';
 
 /**
@@ -10,7 +10,7 @@ import noteInitialState from './note/noteInitialState';
  */
 function addNote(state, note) {
   const newNotes = state.notes.slice();
-  const newNote = Object.assign({}, noteInitialState(state.scale), note);
+  const newNote = Object.assign({}, noteInitialState(), note);
   newNotes.push(calculateNoteViewDimensions(newNote, state.viewDimensions));
   return Object.assign({}, state, {
     notesMaxZ: calculateNotesMaxZ(newNotes),

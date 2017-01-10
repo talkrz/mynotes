@@ -17,7 +17,6 @@ const initialState = {
     top: 0,
     left: 0,
   },
-  scale: 1.0,
   pendingNotesChanges: [],
 };
 

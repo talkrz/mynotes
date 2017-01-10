@@ -14,7 +14,6 @@ const createInitialState = () => ({
     top: 0,
     left: 0,
   },
-  scale: 1.0,
   pendingNotesChanges: [],
 });
 
@@ -55,7 +54,6 @@ describe('Reducers :: board', () => {
         top: 0,
         left: 0,
       },
-      scale: 1.0,
       pendingNotesChanges: [],
     });
   });
@@ -74,7 +72,6 @@ describe('Reducers :: board', () => {
         top: 0,
         left: 0,
       },
-      scale: 1.0,
       pendingNotesChanges: [],
     };
 
@@ -105,17 +102,20 @@ describe('Reducers :: board', () => {
       top: 0,
       left: 0,
     });
+
     expect(actualState.notes[0]).to.deep.equal({
       id: 'server note id',
       boardId: 'server board id',
       x: 0.5,
       y: 0.2,
       z: 3,
+      width: 0.12,
+      height: 0.12,
       color: '#abc',
       content: 'Test',
       viewDimensions: {
-        width: 200,
-        height: 200,
+        width: 0,
+        height: 0,
         top: 0,
         left: 0,
       },

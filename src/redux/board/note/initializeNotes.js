@@ -1,10 +1,10 @@
 import noteInitialState from './noteInitialState';
 
-function initializeNotes(notesServerData, scale) {
+function initializeNotes(notesServerData) {
   const notes = [];
 
   notesServerData.forEach((noteServerData) => {
-    const note = Object.assign({}, noteInitialState(scale), noteServerData);
+    const note = Object.assign({}, noteInitialState(), noteServerData);
     notes.push(note);
   });
 
