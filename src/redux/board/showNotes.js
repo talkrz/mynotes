@@ -1,6 +1,6 @@
 import calculateNotesMaxZ from './calculateNotesMaxZ';
 import noteInitialState from './note/noteInitialState';
-import calculateNotesViewDimensions from './calculateNotesViewDimensions';
+import calculateNoteViewDimensions from './note/calculateNoteViewDimensions';
 
 /**
  * Initialize an array of notes according to data from the server
@@ -27,14 +27,13 @@ function initializeNotes(notesServerData) {
  * @return {Object}       new state
  */
 function showNotes(state, board) {
-  const newNotes = calculateNotesViewDimensions(
-    initializeNotes(board.notes),
-    state.viewDimensions,
-  );
+  const notes = initializeNotes(board.notes)
+    .map(note => calculateNoteViewDimensions(note, state.viewDimensions));
+
   return Object.assign({}, state, {
     id: board.id,
-    notesMaxZ: calculateNotesMaxZ(newNotes),
-    notes: newNotes,
+    notesMaxZ: calculateNotesMaxZ(notes),
+    notes,
     getInProgres: false,
     errorMessage: null,
   });
