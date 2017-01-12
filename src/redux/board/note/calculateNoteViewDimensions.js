@@ -20,12 +20,12 @@ function calculateNoteViewDimensions(note, boardDimensions) {
   }
 
   const newNote = Object.assign({}, note, {
-    viewDimensions: Object.assign({}, note.viewDimensions, {
+    viewDimensions: {
       top,
       left,
       width,
       height,
-    }),
+    },
   });
 
   return newNote;
