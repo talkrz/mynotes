@@ -1,6 +1,6 @@
-import updateNoteState from './updateNoteState';
+import updateNoteState from './note/updateNoteState';
 import addNote from './addNote';
-import moveNote from './moveNote';
+import moveNote from './note/moveNote';
 import showNotes from './showNotes';
 import resizeBoard from './resizeBoard';
 
