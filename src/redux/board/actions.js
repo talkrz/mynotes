@@ -249,3 +249,19 @@ export const deleteNoteAndSave = (noteId, color) => (
     dispatch(editNoteDone());
   }
 );
+
+export const noteMoveToTheTop = noteKey => ({
+  type: 'NOTE_MOVE_TO_THE_TOP',
+  noteKey,
+});
+
+export const noteMoveToTheTopAndSave = noteKey => (
+  (dispatch, getState) => {
+    dispatch(noteMoveToTheTop(noteKey));
+    const note = getState().board.notes[noteKey];
+    dispatch(addPendingNoteChange('UPDATE', note.id, {
+      z: note.z,
+    }));
+    dispatch(saveNotesChanges());
+  }
+);

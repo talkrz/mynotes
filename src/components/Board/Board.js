@@ -6,7 +6,8 @@ import {
   noteMakeDraggable,
   noteMakeNotDraggable,
   noteMoveStarted,
-  noteMoveAndSave } from './../../redux/board/actions';
+  noteMoveAndSave,
+  noteMoveToTheTopAndSave } from './../../redux/board/actions';
 import { editNote } from './../../redux/noteEditor/actions';
 import Note from './../Note/Note';
 import NoteEditorContainer from './../NoteEditor/NoteEditorContainer';
@@ -68,6 +69,7 @@ class Board extends Component {
     });
     const onNoteEdit = (noteKey, noteContent) => (() => {
       dispatch(editNote(noteKey, noteContent));
+      dispatch(noteMoveToTheTopAndSave(noteKey));
     });
 
     return (

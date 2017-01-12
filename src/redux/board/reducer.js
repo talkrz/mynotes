@@ -99,6 +99,13 @@ const board = (state = initialState, action) => {
       return Object.assign({}, state, {
         notes: state.notes.filter(n => (n.id !== action.noteId)),
       });
+    case 'NOTE_MOVE_TO_THE_TOP':
+      const newZ = state.notesMaxZ + 1;
+      const newState = updateNoteState(state, action.noteKey, {
+        z: newZ,
+      });
+      newState.notesMaxZ = newZ;
+      return newState;
     default:
       return state;
   }

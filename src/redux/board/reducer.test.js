@@ -186,4 +186,44 @@ describe('Reducers :: board', () => {
     expect(actualState.pendingNotesChanges).to.have.lengthOf(1);
     expect(actualState.errorMessage).to.equal('failed');
   });
+
+  it('Should handle NOTE_MOVE_TO_THE_TOP', () => {
+    const state = createInitialState();
+    state.notes.push({
+      id: 1,
+      boardId: 1,
+      x: 0.5,
+      y: 0.5,
+      z: 5,
+      width: 0.12,
+      height: 0.12,
+      color: '#fff',
+      content: '1st note',
+      isDraggable: true,
+    });
+
+    state.notes.push({
+      id: 2,
+      boardId: 1,
+      x: 0.5,
+      y: 0.5,
+      z: 2,
+      width: 0.12,
+      height: 0.12,
+      color: '#fff',
+      content: '1st note',
+      isDraggable: true,
+    });
+
+    state.notesMaxZ = 5;
+
+    const newState = reducer(state, {
+      type: 'NOTE_MOVE_TO_THE_TOP',
+      noteKey: 1,
+    });
+
+    expect(newState.notes[0].z).to.equal(5);
+    expect(newState.notes[1].z).to.equal(6);
+    expect(newState.notesMaxZ).to.equal(6);
+  });
 });
