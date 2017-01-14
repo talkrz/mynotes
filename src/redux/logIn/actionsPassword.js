@@ -49,11 +49,15 @@ export const logIn = () => (
           dispatch(resetLoginProcess());
           dispatch(push('/'));
         } else {
-          dispatch(logInError('The password is invalid'));
+          throw new Error('Unknown error occured');
         }
       })
       .catch((err) => {
-        dispatch(logInError(err.message));
+        if (err.message === 'Not found') {
+          dispatch(logInError('The password is invalid'));
+        } else {
+          dispatch(logInError(err.message));
+        }
       });
   }
 );
