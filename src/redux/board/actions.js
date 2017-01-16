@@ -3,7 +3,7 @@ import { convertToRaw } from 'draft-js';
 import server from './../../server/server';
 import serverSaveNotesChanges from './../../server/serverSaveNotesChanges';
 import { addSelfDisappearingMessage } from './../messages/actions';
-import { setTitle, sidemenuClose } from './../app/actions';
+import { setTitle, finishEditTitle, sidemenuClose } from './../app/actions';
 import { editNoteDone } from './../noteEditor/actions';
 
 function convertEditorStateToHtml(editorState) {
@@ -50,6 +50,7 @@ export const getBoard = (boardId, getBoardDimensions = null) => (
         return server.getBoardNotes(boardId);
       })
       .then((response) => {
+        dispatch(finishEditTitle());
         dispatch(setTitle(board.name));
         dispatch(sidemenuClose());
         dispatch(editNoteDone());
