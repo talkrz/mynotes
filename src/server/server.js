@@ -68,6 +68,24 @@ const getBoard = boardId => (
   ))
 );
 
+const updateBoard = ({ id, name }) => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/boards/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'X-Auth-Key': accessKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+        }),
+      })
+    ))
+  ))
+);
+
 const getBoardNotes = boardId => (
   authorizationHandler(accessKey => (
     errorHandler(() => (
@@ -146,6 +164,7 @@ export default {
   refreshCredentials,
   getBoardList,
   getBoard,
+  updateBoard,
   getBoardNotes,
   updateNote,
   createNote,

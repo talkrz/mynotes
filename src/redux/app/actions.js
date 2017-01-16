@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import { removeAccessCredentials } from './../../localStorage/accessCredentials';
-import { resetBoard } from './../board/actions';
+import { resetBoard, saveBoardTitle } from './../board/actions';
 
 export const sidemenuOpen = () => ({
   type: 'SIDEMENU_OPEN',
@@ -24,7 +24,9 @@ export const finishEditTitle = () => ({
 });
 
 export const saveTitle = () => (
-  (dispatch) => {
+  (dispatch, getState) => {
+    const title = getState().app.title;
+    dispatch(saveBoardTitle(title));
     dispatch(finishEditTitle());
   }
 );

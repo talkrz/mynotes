@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     let title = null;
     if (this.props.titleInEditMode) {
-      title = <div>
+      title = <div className="App-title-controls">
         <input className="App-title-input"
           type="text"
           value={this.props.title}

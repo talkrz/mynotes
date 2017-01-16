@@ -265,3 +265,33 @@ export const noteMoveToTheTopAndSave = noteKey => (
     dispatch(saveNotesChanges());
   }
 );
+
+export const saveBoardTitleRequest = () => ({
+  type: 'SAVE_BOARD_TITLE_REQUEST',
+});
+
+export const saveBoardTitleFinished = () => ({
+  type: 'SAVE_BOARD_TITLE_FINISHED',
+});
+
+export const saveBoardTitle = name => (
+  (dispatch, getState) => {
+    const id = getState().board.id;
+    server.updateBoard({ id, name })
+      .then((response) => {
+        dispatch(saveBoardTitleFinished());
+      })
+      .catch((err) => {
+        if (err === 'Unauthorized') {
+          dispatch(saveBoardTitleFinished());
+          dispatch(push('/login'));
+        } else {
+          throw err;
+        }
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+        dispatch(saveBoardTitleFinished());
+      });
+  }
+);
