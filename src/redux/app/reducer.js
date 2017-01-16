@@ -1,6 +1,7 @@
 const initialState = {
   sidemenuOpen: false,
   title: '',
+  titleInEditMode: false,
 };
 
 const app = (state = initialState, action) => {
@@ -16,6 +17,14 @@ const app = (state = initialState, action) => {
     case 'SET_TITLE':
       return Object.assign({}, state, {
         title: action.title,
+      });
+    case 'EDIT_TITLE':
+      return Object.assign({}, state, {
+        titleInEditMode: true,
+      });
+    case 'FINISH_EDIT_TITLE':
+      return Object.assign({}, state, {
+        titleInEditMode: false,
       });
     default:
       return state;

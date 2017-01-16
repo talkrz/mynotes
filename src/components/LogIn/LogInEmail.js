@@ -20,7 +20,7 @@ class LogInEmail extends Component {
           <input type="email" name="email" ref="email" value={this.props.email} onChange={handleChange} />
         </div>
         <div className="LogIn-form-row LogIn-form-buttons">
-          <button type="submit" className="LogIn-button" onClick={this.props.onNextClick}>Next</button>
+          <button type="submit" className="btn-action LogIn-button" onClick={this.props.onNextClick}>Next</button>
         </div>
       </div>
     );

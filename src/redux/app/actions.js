@@ -15,6 +15,20 @@ export const setTitle = title => ({
   title,
 });
 
+export const editTitle = () => ({
+  type: 'EDIT_TITLE',
+});
+
+export const finishEditTitle = () => ({
+  type: 'FINISH_EDIT_TITLE',
+});
+
+export const saveTitle = () => (
+  (dispatch) => {
+    dispatch(finishEditTitle());
+  }
+);
+
 export const logout = () => (
   (dispatch) => {
     removeAccessCredentials();

@@ -21,8 +21,8 @@ class LogInPassword extends Component {
           <input type="password" ref="password" name="password" value={this.props.password} onChange={handleChange} />
           </div>
         <div className="LogIn-form-row LogIn-form-buttons">
-          <button className="LogIn-button" onClick={this.props.onBackClick}>Back</button>
-          <button className="LogIn-button" onClick={this.props.onLoginClick}>Log in</button>
+          <button className="btn-action LogIn-button" onClick={this.props.onBackClick}>Back</button>
+          <button className="btn-action LogIn-button" onClick={this.props.onLoginClick}>Log in</button>
         </div>
       </div>
     );

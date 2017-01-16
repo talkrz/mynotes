@@ -48,11 +48,13 @@ const NoteEditor = ({
         </div>
 
         <div className="NoteEditor-tools">
-          <button className="btn NoteEditor-tool NoteEditor-tool-delete" onClick={deleteNote(note ? note.id : null)}>
+          <button
+            className="btn btn-action NoteEditor-tool NoteEditor-tool-delete"
+            onClick={deleteNote(note ? note.id : null)}>
             <i className="fa fa-trash" aria-hidden="true"></i>
           </button>
 
-          <button className="btn NoteEditor-tool NoteEditor-tool-last" onClick={editNoteDone}>
+          <button className="btn btn-action NoteEditor-tool NoteEditor-tool-last" onClick={editNoteDone}>
             <i className="fa fa-check" aria-hidden="true"></i>
           </button>
         </div>

@@ -7,6 +7,23 @@ import BoardListContainer from './../components/BoardList/BoardListContainer';
 
 class App extends Component {
   render() {
+    let title = null;
+    if (this.props.titleInEditMode) {
+      title = <div>
+        <input className="App-title-input"
+          type="text"
+          value={this.props.title}
+          onClick={this.props.onTitleClick}
+          onChange={(event) => {
+            this.props.onTitleChanged(event.target.value);
+          }} />
+          <button className="btn btn-action" onClick={this.props.onTitleSave}>Save</button>
+        </div>;
+    } else {
+      title = <span className="App-title" onClick={this.props.onTitleClick}>
+        {this.props.title}
+      </span>;
+    }
     return (
       <div className="App">
         <MessagesContainer />
@@ -18,7 +35,7 @@ class App extends Component {
             </button>
           </div>
           <Link className="App-logo" to="/">my notes</Link>
-          <span className="App-title">{this.props.title}</span>
+          {title}
         </div>
         <div className="App-content">
           {this.props.children ? this.props.children : <BoardListContainer />}
