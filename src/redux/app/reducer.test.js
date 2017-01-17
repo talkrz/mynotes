@@ -6,6 +6,7 @@ describe('Reducers :: app', () => {
     expect(reducer(undefined, {})).to.be.deep.equal({
       sidemenuOpen: false,
       title: '',
+      titleInEditMode: false,
     });
   });
 

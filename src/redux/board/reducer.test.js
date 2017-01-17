@@ -7,6 +7,7 @@ const createInitialState = () => ({
   notesMaxZ: 0,
   getInProgres: false,
   saveNoteChangesInProgress: false,
+  saveBoardTitleInProgress: false,
   errorMessage: null,
   viewDimensions: {
     width: 0,
@@ -47,6 +48,7 @@ describe('Reducers :: board', () => {
       notesMaxZ: 0,
       getInProgres: true,
       saveNoteChangesInProgress: false,
+      saveBoardTitleInProgress: false,
       errorMessage: null,
       viewDimensions: {
         width: 0,
