@@ -1,68 +1,81 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import TextEditor from './TextEditor';
 import './NoteEditor.css';
 
-const NoteEditor = ({
-  boardId,
-  notesMaxZ,
-  note,
-  noteKey,
-  colors,
-  isActive,
-  editorState,
-  createNote,
-  deleteNote,
-  editNoteChangeColor,
-  editNoteDone,
-  editorContentChanged,
-}) => {
-  const expandedShowHide = isActive ? '' : ' hidden';
-  const collapsedShowHide = isActive ? ' hidden' : '';
-  return (
-    <div>
-      <div className={`NoteEditor${collapsedShowHide}`}>
-        <button className="btn NoteEditor-tool" onClick={createNote(boardId, notesMaxZ + 1)}>
-          <i className="fa fa-plus" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div className={`NoteEditor NoteEditor-expanded${expandedShowHide}`}>
-        <div className="NoteEditor-tools">
-          {colors.map((color, key) => {
-            const selectedClass = (note && note.color === color) ? ' NoteEditor-tool-color-selected' : '';
-            return (
-              <button
-                key={key}
-                onClick={editNoteChangeColor(noteKey, color)}
-                className={`btn NoteEditor-tool-color${selectedClass}`}
-                style={{ backgroundColor: color }}>
-              </button>
-            );
-          })}
+class NoteEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.onClickOutside = this.onClickOutside.bind(this);
+  }
 
+  onClickOutside(e) {
+    const domNode = this.noteEditorEl;
+    if (!domNode || !domNode.contains(e.target)) {
+      this.props.editNoteDone();
+    }
+  }
 
-        </div>
-        <div className="NoteEditor-text-editor-container">
-          <TextEditor
-            editorState={editorState}
-            editorContentChanged={editorContentChanged(noteKey)} />
-        </div>
+  componentDidMount() {
+    document.addEventListener('click', this.onClickOutside, true);
+  }
 
-        <div className="NoteEditor-tools">
-          <button
-            className="btn btn-action NoteEditor-tool NoteEditor-tool-delete"
-            onClick={deleteNote(note ? note.id : null)}>
-            <i className="fa fa-trash" aria-hidden="true"></i>
-          </button>
+  componentWillUnmount() {
+    document.removeEventListener('click', this.onClickOutside, true);
+  }
 
-          <button className="btn btn-action NoteEditor-tool NoteEditor-tool-last" onClick={editNoteDone}>
-            <i className="fa fa-check" aria-hidden="true"></i>
+  render() {
+    const expandedShowHide = this.props.isActive ? '' : ' hidden';
+    const collapsedShowHide = this.props.isActive ? ' hidden' : '';
+    return (
+      <div ref={(noteEditor) => { this.noteEditorEl = noteEditor; }}>
+        <div className={`NoteEditor${collapsedShowHide}`}>
+          <button className="btn NoteEditor-tool" onClick={
+            this.props.createNote(this.props.boardId, this.props.notesMaxZ + 1)
+          }>
+            <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
         </div>
+        <div className={`NoteEditor NoteEditor-expanded${expandedShowHide}`}>
+          <div className="NoteEditor-tools">
+            {this.props.colors.map((color, key) => {
+              const selectedClass = (this.props.note && this.props.note.color === color)
+                ? ' NoteEditor-tool-color-selected'
+                : '';
+              return (
+                <button
+                  key={key}
+                  onClick={this.props.editNoteChangeColor(this.props.noteKey, color)}
+                  className={`btn NoteEditor-tool-color${selectedClass}`}
+                  style={{ backgroundColor: color }}>
+                </button>
+              );
+            })}
 
+
+          </div>
+          <div className="NoteEditor-text-editor-container">
+            <TextEditor
+              editorState={this.props.editorState}
+              editorContentChanged={this.props.editorContentChanged(this.props.noteKey)} />
+          </div>
+
+          <div className="NoteEditor-tools">
+            <button
+              className="btn btn-action NoteEditor-tool NoteEditor-tool-delete"
+              onClick={this.props.deleteNote(this.props.note ? this.props.note.id : null)}>
+              <i className="fa fa-trash" aria-hidden="true"></i>
+            </button>
+
+            <button className="btn btn-action NoteEditor-tool NoteEditor-tool-last" onClick={this.props.editNoteDone}>
+              <i className="fa fa-check" aria-hidden="true"></i>
+            </button>
+          </div>
+
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 NoteEditor.propTypes = {
   note: PropTypes.shape({

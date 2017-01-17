@@ -12,6 +12,9 @@ const mapDispatchToProps = dispatch => ({
   onMenuButtonClick: () => {
     dispatch(sidemenuClose());
   },
+  onClickOutside: () => {
+    dispatch(sidemenuClose());
+  },
   onLoad: () => {
     dispatch(getBoardList());
   },
