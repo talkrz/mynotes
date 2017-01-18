@@ -3,7 +3,7 @@ import './LogIn.css';
 
 class LogInEmail extends Component {
   componentDidMount() {
-    this.refs.email.focus();
+    this.emailElement.focus();
   }
 
   render() {
@@ -12,17 +12,22 @@ class LogInEmail extends Component {
     };
 
     return (
-      <div>
+      <form onSubmit={(e) => { e.preventDefault(); this.props.onNextClick(); }}>
         <div className="LogIn-form-row LogIn-form-input">
           <label htmlFor="email">Enter your email:</label>
         </div>
         <div className="LogIn-form-row LogIn-form-input">
-          <input type="email" name="email" ref="email" value={this.props.email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            ref={(email) => { this.emailElement = email; }}
+            value={this.props.email}
+            onChange={handleChange} />
         </div>
         <div className="LogIn-form-row LogIn-form-buttons">
-          <button type="submit" className="btn-action LogIn-button" onClick={this.props.onNextClick}>Next</button>
+          <button type="submit" className="btn-action LogIn-button">Next</button>
         </div>
-      </div>
+      </form>
     );
   }
 }
