@@ -19,6 +19,7 @@
 }
 
 .Header-title:hover {
+  padding: 4px;
   border: solid 1px #ddd;
 }
 
