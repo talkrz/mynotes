@@ -13,17 +13,13 @@
 }
 
 .Header-title {
+  padding: 5px;
   margin-left: 25px;
   white-space: nowrap;
 }
 
-.Header-title-controls {
-  display: flex;
-}
-
-.Header-title-input {
-  margin-left: 25px;
-  font-size: 16px;
+.Header-title:hover {
+  border: solid 1px #ddd;
 }
 
 .Header-header {

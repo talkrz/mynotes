@@ -1,0 +1,8 @@
+.TitleEditor-title-controls {
+  display: flex;
+}
+
+.TitleEditor-title-input {
+  margin-left: 25px;
+  font-size: 16px;
+}

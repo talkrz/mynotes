@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import Header from './Header';
-import {
-  sidemenuOpen,
-  editTitle,
-  setTitle,
-  saveTitle } from './../../redux/app/actions';
+import { sidemenuOpen, editTitle } from './../../redux/app/actions';
 
 const mapStateToProps = state => ({
   title: state.app.title,
@@ -17,12 +13,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onTitleClick: () => {
     dispatch(editTitle());
-  },
-  onTitleChanged: (title) => {
-    dispatch(setTitle(title));
-  },
-  onTitleSave: () => {
-    dispatch(saveTitle());
   },
 });
 
