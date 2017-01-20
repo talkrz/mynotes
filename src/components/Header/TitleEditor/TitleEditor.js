@@ -8,7 +8,7 @@ class TitleEditor extends Component {
   }
 
   onClickOutside(e) {
-    const domNode = this.noteEditorEl;
+    const domNode = this.titleEditorEl;
     if (!domNode || !domNode.contains(e.target)) {
       this.props.onTitleSave();
     }
@@ -16,6 +16,7 @@ class TitleEditor extends Component {
 
   componentDidMount() {
     document.addEventListener('click', this.onClickOutside, true);
+    this.inputEl.focus();
   }
 
   componentWillUnmount() {
@@ -24,14 +25,18 @@ class TitleEditor extends Component {
 
   render() {
     return (
-      <div className="TitleEditor-title-controls">
+      <div
+        className="TitleEditor-title-controls"
+        ref={(el) => { this.titleEditorEl = el; }}
+      >
         <input className="TitleEditor-title-input"
           type="text"
           value={this.props.title}
           onChange={(event) => {
             this.props.onTitleChanged(event.target.value);
-          }} />
-          <button className="btn btn-action" onClick={this.props.onTitleSave}>Save</button>
+          }}
+          ref={(el) => { this.inputEl = el; }}
+        />
       </div>
     );
   }
