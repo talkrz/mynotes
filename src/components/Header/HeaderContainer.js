@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import App from './App';
+import Header from './Header';
 import {
   sidemenuOpen,
   editTitle,
   setTitle,
-  saveTitle } from './../redux/app/actions';
+  saveTitle } from './../../redux/app/actions';
 
 const mapStateToProps = state => ({
   title: state.app.title,
@@ -27,6 +27,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
 
-export default AppContainer;
+export default HeaderContainer;
