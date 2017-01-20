@@ -6,16 +6,13 @@ const createInitialState = () => ({
   notes: [],
   notesMaxZ: 0,
   getInProgres: false,
-  saveNoteChangesInProgress: false,
   saveBoardTitleInProgress: false,
-  errorMessage: null,
   viewDimensions: {
     width: 0,
     height: 0,
     top: 0,
     left: 0,
   },
-  pendingNotesChanges: [],
 });
 
 describe('Reducers :: board', () => {
@@ -47,16 +44,13 @@ describe('Reducers :: board', () => {
       notes: [],
       notesMaxZ: 0,
       getInProgres: true,
-      saveNoteChangesInProgress: false,
       saveBoardTitleInProgress: false,
-      errorMessage: null,
       viewDimensions: {
         width: 0,
         height: 0,
         top: 0,
         left: 0,
-      },
-      pendingNotesChanges: [],
+      }
     });
   });
 
@@ -66,15 +60,12 @@ describe('Reducers :: board', () => {
       notes: [],
       notesMaxZ: 0,
       getInProgres: true,
-      saveNoteChangesInProgress: false,
-      errorMessage: null,
       viewDimensions: {
         width: 0,
         height: 0,
         top: 0,
         left: 0,
-      },
-      pendingNotesChanges: [],
+      }
     };
 
     const actualState = reducer(state, {
@@ -97,7 +88,6 @@ describe('Reducers :: board', () => {
     expect(actualState.notes).to.have.lengthOf(1);
     expect(actualState.notesMaxZ).to.equal(3);
     expect(actualState.getInProgres).to.be.false; // eslint-disable-line
-    expect(actualState.errorMessage).to.be.null; // eslint-disable-line
     expect(actualState.viewDimensions).to.deep.equal({
       width: 0,
       height: 0,
@@ -136,57 +126,12 @@ describe('Reducers :: board', () => {
 
     const actualState = reducer(state, {
       type: 'GET_BOARD_ERROR',
-      errorMessage: 'failed',
     });
 
     expect(actualState.id).to.equal(null);
     expect(actualState.notesMaxZ).to.equal(0);
     expect(actualState.notes).to.have.lengthOf(0);
     expect(actualState.getInProgres).to.equal(false);
-    expect(actualState.errorMessage).to.equal('failed');
-  });
-
-  it('Should handle SAVE_NOTES_CHANGES_REQUEST', () => {
-    const state = createInitialState();
-
-    const actualState = reducer(state, {
-      type: 'SAVE_NOTES_CHANGES_REQUEST',
-    });
-
-    expect(actualState.saveNoteChangesInProgress).to.equal(true);
-  });
-
-  it('Should handle SAVE_NOTES_CHANGES_SUCCESS', () => {
-    const state = createInitialState();
-    state.saveNoteChangesInProgress = true;
-    state.pendingNotesChanges = [
-      { some: 'pending changes' },
-    ];
-
-    const actualState = reducer(state, {
-      type: 'SAVE_NOTES_CHANGES_SUCCESS',
-    });
-
-    expect(actualState.saveNoteChangesInProgress).to.equal(false);
-    expect(actualState.errorMessage).to.equal(null);
-    expect(actualState.pendingNotesChanges).to.have.lengthOf(0);
-  });
-
-  it('Should handle SAVE_NOTES_CHANGES_ERROR', () => {
-    const state = createInitialState();
-    state.saveNoteChangesInProgress = true;
-    state.pendingNotesChanges = [
-      { some: 'pending changes' },
-    ];
-
-    const actualState = reducer(state, {
-      type: 'SAVE_NOTES_CHANGES_ERROR',
-      errorMessage: 'failed',
-    });
-
-    expect(actualState.saveNoteChangesInProgress).to.equal(false);
-    expect(actualState.pendingNotesChanges).to.have.lengthOf(1);
-    expect(actualState.errorMessage).to.equal('failed');
   });
 
   it('Should handle NOTE_MOVE_TO_THE_TOP', () => {

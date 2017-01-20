@@ -9,16 +9,13 @@ const initialState = {
   notes: [],
   notesMaxZ: 0,
   getInProgres: false,
-  saveNoteChangesInProgress: false,
   saveBoardTitleInProgress: false,
-  errorMessage: null,
   viewDimensions: {
     width: 0,
     height: 0,
     top: 0,
     left: 0,
   },
-  pendingNotesChanges: [],
 };
 
 const board = (state = initialState, action) => {
@@ -37,22 +34,6 @@ const board = (state = initialState, action) => {
         notesMaxZ: 0,
         notes: [],
         getInProgres: false,
-        errorMessage: action.errorMessage,
-      });
-    case 'SAVE_NOTES_CHANGES_REQUEST':
-      return Object.assign({}, state, {
-        saveNoteChangesInProgress: true,
-      });
-    case 'SAVE_NOTES_CHANGES_SUCCESS':
-      return Object.assign({}, state, {
-        pendingNotesChanges: [],
-        saveNoteChangesInProgress: false,
-        errorMessage: null,
-      });
-    case 'SAVE_NOTES_CHANGES_ERROR':
-      return Object.assign({}, state, {
-        saveNoteChangesInProgress: false,
-        errorMessage: action.errorMessage,
       });
     case 'BOARD_RESIZED':
       return resizeBoard(state, {
@@ -77,24 +58,7 @@ const board = (state = initialState, action) => {
       return updateNoteState(state, action.noteId, {
         content: action.content,
       });
-    case 'ADD_PENDING_NOTE_CHANGE':
-      const pendingNotesChanges = state.pendingNotesChanges.slice();
-
-      pendingNotesChanges.push({
-        changeType: action.changeType,
-        noteId: action.noteId,
-        data: action.data,
-      });
-      return Object.assign({}, state, {
-        pendingNotesChanges,
-      });
-    case 'CREATE_NOTE_REQUEST':
-      return state;
-    case 'CREATE_NOTE_ERROR':
-      return Object.assign({}, state, {
-        errorMessage: action.errorMessage,
-      });
-    case 'CREATE_NOTE_SUCCESS':
+    case 'CREATE_NOTE':
       return addNote(state, action.note);
     case 'NOTE_DELETE':
       return Object.assign({}, state, {

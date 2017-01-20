@@ -35,7 +35,6 @@ function showNotes(state, board) {
     notesMaxZ: calculateNotesMaxZ(notes),
     notes,
     getInProgres: false,
-    errorMessage: null,
   });
 }
 

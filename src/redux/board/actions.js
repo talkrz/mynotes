@@ -1,10 +1,24 @@
 import { push } from 'react-router-redux';
 import { convertToRaw } from 'draft-js';
 import server from './../../server/server';
-import serverSaveNotesChanges from './../../server/serverSaveNotesChanges';
+import pushChange from './../../server/pushChange';
 import { addSelfDisappearingMessage } from './../messages/actions';
 import { setTitle, finishEditTitle, sidemenuClose } from './../app/actions';
 import { editNoteDone } from './../noteEditor/actions';
+
+function serverErrorHandler(promise, dispatch) {
+  return promise
+    .catch((err) => {
+      if (err === 'Unauthorized') {
+        dispatch(push('/login'));
+      } else {
+        throw err;
+      }
+    })
+    .catch((err) => {
+      dispatch(addSelfDisappearingMessage(err.message, 'error'));
+    });
+}
 
 function convertEditorStateToHtml(editorState) {
   const lines = [];
@@ -36,9 +50,8 @@ export const getBoardSuccess = board => ({
   board,
 });
 
-export const getBoardError = errorMessage => ({
+export const getBoardError = () => ({
   type: 'GET_BOARD_ERROR',
-  errorMessage,
 });
 
 export const getBoard = (boardId, getBoardDimensions = null) => (
@@ -77,41 +90,6 @@ export const getBoard = (boardId, getBoardDimensions = null) => (
   }
 );
 
-export const saveNotesChangesRequest = () => ({
-  type: 'SAVE_NOTES_CHANGES_REQUEST',
-});
-
-export const saveNotesChangesSuccess = () => ({
-  type: 'SAVE_NOTES_CHANGES_SUCCESS',
-});
-
-export const saveNotesChangesError = errorMessage => ({
-  type: 'SAVE_NOTES_CHANGES_ERROR',
-  errorMessage,
-});
-
-export const saveNotesChanges = () => (
-  (dispatch, getState) => {
-    const changes = getState().board.pendingNotesChanges;
-    serverSaveNotesChanges(changes)
-      .then((response) => {
-        dispatch(saveNotesChangesSuccess());
-      })
-      .catch((err) => {
-        if (err === 'Unauthorized') {
-          dispatch(getBoardError(err));
-          dispatch(push('/login'));
-        } else {
-          throw err;
-        }
-      })
-      .catch((err) => {
-        dispatch(addSelfDisappearingMessage(err.message, 'error'));
-        dispatch(saveNotesChangesError(err.message));
-      });
-  }
-);
-
 export const noteMakeDraggable = noteId => ({
   type: 'NOTE_MAKE_DRAGGABLE',
   noteId,
@@ -120,13 +98,6 @@ export const noteMakeDraggable = noteId => ({
 export const noteMakeNotDraggable = noteId => ({
   type: 'NOTE_MAKE_NOT_DRAGGABLE',
   noteId,
-});
-
-export const addPendingNoteChange = (changeType, noteId, data) => ({
-  type: 'ADD_PENDING_NOTE_CHANGE',
-  changeType,
-  noteId,
-  data,
 });
 
 export const noteMoveStarted = noteId => ({
@@ -145,11 +116,14 @@ export const noteMoveAndSave = (noteId, x, y) => (
   (dispatch, getState) => {
     dispatch(noteMoveFinished(noteId, x, y));
     const note = getState().board.notes[noteId];
-    dispatch(addPendingNoteChange('UPDATE', note.id, {
-      x: note.x,
-      y: note.y,
-    }));
-    dispatch(saveNotesChanges());
+
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_UPDATE',
+        data: { id: note.id, x: note.x, y: note.y },
+      }),
+      dispatch,
+    );
   }
 );
 
@@ -163,10 +137,14 @@ export const noteChangeColorAndSave = (noteId, color) => (
   (dispatch, getState) => {
     dispatch(noteChangeColor(noteId, color));
     const note = getState().board.notes[noteId];
-    dispatch(addPendingNoteChange('UPDATE', note.id, {
-      color,
-    }));
-    dispatch(saveNotesChanges());
+
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_UPDATE',
+        data: { id: note.id, color },
+      }),
+      dispatch,
+    );
   }
 );
 
@@ -187,25 +165,19 @@ export const noteChangeContentAndSave = (noteId, editorState) => (
 
     dispatch(noteChangeContent(noteId, newContent));
 
-    dispatch(addPendingNoteChange('UPDATE', note.id, {
-      content: newContent,
-    }));
-    dispatch(saveNotesChanges());
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_UPDATE',
+        data: { id: note.id, content: newContent },
+      }),
+      dispatch,
+    );
   }
 );
 
-export const createNoteRequest = () => ({
-  type: 'CREATE_NOTE_REQUEST',
-});
-
-export const createNoteSuccess = note => ({
-  type: 'CREATE_NOTE_SUCCESS',
+export const createNote = note => ({
+  type: 'CREATE_NOTE',
   note,
-});
-
-export const createNoteError = errorMessage => ({
-  type: 'CREATE_NOTE_ERROR',
-  errorMessage,
 });
 
 export const createNoteAndSave = (boardId, data) => (
@@ -217,23 +189,16 @@ export const createNoteAndSave = (boardId, data) => (
       z: 0,
       color: '#ffe45c',
     }, data);
-    dispatch(createNoteRequest());
-    server.createNote(boardId, note)
-      .then((response) => {
-        dispatch(createNoteSuccess(response));
-      })
-      .catch((err) => {
-        if (err === 'Unauthorized') {
-          dispatch(getBoardError(err));
-          dispatch(push('/login'));
-        } else {
-          throw err;
-        }
-      })
-      .catch((err) => {
-        dispatch(addSelfDisappearingMessage(err.message, 'error'));
-        dispatch(createNoteError(err.message));
-      });
+
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_CREATE',
+        data: { boardId, note },
+      }),
+      dispatch,
+    ).then((savedNote) => {
+      dispatch(createNote(savedNote));
+    });
   }
 );
 
@@ -245,9 +210,15 @@ export const deleteNote = noteId => ({
 export const deleteNoteAndSave = (noteId, color) => (
   (dispatch) => {
     dispatch(deleteNote(noteId, color));
-    dispatch(addPendingNoteChange('DELETE', noteId));
-    dispatch(saveNotesChanges());
     dispatch(editNoteDone());
+
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_DELETE',
+        data: { id: noteId },
+      }),
+      dispatch,
+    );
   }
 );
 
@@ -260,10 +231,14 @@ export const noteMoveToTheTopAndSave = noteKey => (
   (dispatch, getState) => {
     dispatch(noteMoveToTheTop(noteKey));
     const note = getState().board.notes[noteKey];
-    dispatch(addPendingNoteChange('UPDATE', note.id, {
-      z: note.z,
-    }));
-    dispatch(saveNotesChanges());
+
+    serverErrorHandler(
+      pushChange({
+        operationType: 'NOTE_UPDATE',
+        data: { id: note.id, z: note.z },
+      }),
+      dispatch,
+    );
   }
 );
 
