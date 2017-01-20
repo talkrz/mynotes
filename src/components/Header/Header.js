@@ -6,8 +6,8 @@ class Header extends Component {
   render() {
     let title = null;
     if (this.props.titleInEditMode) {
-      title = <div className="App-title-controls">
-        <input className="App-title-input"
+      title = <div className="Header-title-controls">
+        <input className="Header-title-input"
           type="text"
           value={this.props.title}
           onClick={this.props.onTitleClick}
@@ -17,19 +17,19 @@ class Header extends Component {
           <button className="btn btn-action" onClick={this.props.onTitleSave}>Save</button>
         </div>;
     } else {
-      title = <span className="App-title" onClick={this.props.onTitleClick}>
+      title = <span className="Header-title" onClick={this.props.onTitleClick}>
         {this.props.title}
       </span>;
     }
 
     return (
-      <div className="App-header">
-        <div className="App-menu-button">
+      <div className="Header-header">
+        <div className="Header-menu-button">
           <button className="btn" onClick={this.props.onMenuButtonClick}>
             <i className="fa fa-bars" aria-hidden="true"></i>
           </button>
         </div>
-        <Link className="App-logo" to="/">my notes</Link>
+        <Link className="Header-logo" to="/">my notes</Link>
         {title}
       </div>
     );

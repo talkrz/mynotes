@@ -30,13 +30,13 @@ class SideMenu extends Component {
 
     return (
       <div className={`SideMenu${visibility}`} ref={(sideMenu) => { this.sideMenuEl = sideMenu; }}>
-        <div className="App-header SideMenu-header">
-          <div className="App-menu-button">
+        <div className="Header-header SideMenu-header">
+          <div className="Header-menu-button">
             <button className="btn" onClick={this.props.onMenuButtonClick}>
               <i className="fa fa-bars" aria-hidden="true"></i>
             </button>
           </div>
-          <Link className="App-logo" to="/">my notes</Link>
+          <Link className="Header-logo" to="/">my notes</Link>
         </div>
         <div className="SideMenu-content">
           <ul className="SideMenu-list">
