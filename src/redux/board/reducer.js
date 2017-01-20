@@ -9,7 +9,6 @@ const initialState = {
   notes: [],
   notesMaxZ: 0,
   getInProgres: false,
-  saveBoardTitleInProgress: false,
   viewDimensions: {
     width: 0,
     height: 0,
@@ -71,14 +70,6 @@ const board = (state = initialState, action) => {
       });
       newState.notesMaxZ = newZ;
       return newState;
-    case 'SAVE_BOARD_TITLE_REQUEST':
-      return Object.assign({}, state, {
-        saveBoardTitleInProgress: true,
-      });
-    case 'SAVE_BOARD_TITLE_FINISHED':
-      return Object.assign({}, state, {
-        saveBoardTitleInProgress: false,
-      });
     default:
       return state;
   }

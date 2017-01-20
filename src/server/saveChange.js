@@ -17,6 +17,8 @@ function saveChange({ operationType, data }) {
       return server.createNote(data.boardId, data.note);
     case 'NOTE_DELETE':
       return server.deleteNote(data.id);
+    case 'BOARD_UPDATE':
+      return server.updateBoard({ id: data.id, name: data.name });
     default:
       throw new Error(`Don't know how to perform given operation: ${operationType}`);
   }

@@ -6,7 +6,6 @@ const createInitialState = () => ({
   notes: [],
   notesMaxZ: 0,
   getInProgres: false,
-  saveBoardTitleInProgress: false,
   viewDimensions: {
     width: 0,
     height: 0,
@@ -44,13 +43,12 @@ describe('Reducers :: board', () => {
       notes: [],
       notesMaxZ: 0,
       getInProgres: true,
-      saveBoardTitleInProgress: false,
       viewDimensions: {
         width: 0,
         height: 0,
         top: 0,
         left: 0,
-      }
+      },
     });
   });
 
@@ -65,7 +63,7 @@ describe('Reducers :: board', () => {
         height: 0,
         top: 0,
         left: 0,
-      }
+      },
     };
 
     const actualState = reducer(state, {
