@@ -5,11 +5,18 @@ class TitleEditor extends Component {
   constructor(props) {
     super(props);
     this.onClickOutside = this.onClickOutside.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
 
   onClickOutside(e) {
     const domNode = this.titleEditorEl;
     if (!domNode || !domNode.contains(e.target)) {
+      this.props.onTitleSave();
+    }
+  }
+
+  onKeyUp(e) {
+    if (e.keyCode === 13) {
       this.props.onTitleSave();
     }
   }
@@ -28,6 +35,7 @@ class TitleEditor extends Component {
       <div
         className="TitleEditor-title-controls"
         ref={(el) => { this.titleEditorEl = el; }}
+        onKeyUp={this.onKeyUp}
       >
         <input className="TitleEditor-title-input"
           type="text"
