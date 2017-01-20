@@ -20,12 +20,10 @@ class Board extends Component {
     optimizeWindowResize();
   }
 
-  componentWillReceiveProps() {
-    const boardState = this.props.board;
-    const newBoardId = parseInt(this.props.routeParams.boardId, 0);
-    if (boardState.id !== newBoardId) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.boardId > 0 && this.props.boardId !== nextProps.boardId) {
       const dispatch = this.props.dispatch;
-      dispatch(getBoard(newBoardId));
+      dispatch(getBoard(nextProps.boardId));
     }
   }
 
