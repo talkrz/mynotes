@@ -3,9 +3,9 @@ import { addSelfDisappearingMessage } from './../messages/actions';
 
 /**
  * Handle server errors and performing appropriate actions
- * @param  {[type]} promise  [description]
- * @param  {[type]} dispatch [description]
- * @return {[type]}          [description]
+ * @param  {Promise}  promise  server operation result promise
+ * @param  {function} dispatch redux dispatch
+ * @return {Promise}           forward original promise
  */
 function serverErrorHandler(promise, dispatch) {
   return promise
