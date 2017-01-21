@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SideMenu from './SideMenu';
-import { sidemenuClose, logout } from './../../redux/app/actions';
+import { createBoard, sidemenuClose, logout } from './../../redux/app/actions';
 import { getBoardList } from './../../redux/boardList/actions';
 
 const mapStateToProps = state => ({
@@ -11,6 +11,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onMenuButtonClick: () => {
     dispatch(sidemenuClose());
+  },
+  onCreateBoard: () => {
+    dispatch(createBoard());
   },
   onClickOutside: () => {
     dispatch(sidemenuClose());

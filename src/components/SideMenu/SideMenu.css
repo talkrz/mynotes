@@ -26,6 +26,7 @@
   display: block;
   color: #444;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .SideMenu-link:hover, .SideMenu-link:focus {

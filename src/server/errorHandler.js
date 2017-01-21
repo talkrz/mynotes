@@ -1,4 +1,4 @@
-const generalErrorMessage = 'Can\'t contact the server, what you did has not been saved :(';
+const generalErrorMessage = 'Can\'t contact the server';
 const notFoundMessage = 'Not found';
 
 function errorHandler(call) {

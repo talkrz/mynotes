@@ -49,9 +49,9 @@ class SideMenu extends Component {
             ))}
             <li className="SideMenu-separator"></li>
             <li>
-              <Link className="SideMenu-link" to="/">
+              <a className="SideMenu-link" onClick={(e) => { e.preventDefault(); this.props.onCreateBoard(); }}>
                 <i className="fa fa-plus" aria-hidden="true"></i> Add new board
-              </Link>
+              </a>
             </li>
             <li className="SideMenu-separator"></li>
             <li>
@@ -72,6 +72,7 @@ SideMenu.propTypes = {
   ),
   sidemenuOpen: PropTypes.bool.isRequired,
   onMenuButtonClick: PropTypes.func.isRequired,
+  onCreateBoard: PropTypes.func.isRequired,
   onClickOutside: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,

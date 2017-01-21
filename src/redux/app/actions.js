@@ -1,8 +1,11 @@
 import { push } from 'react-router-redux';
+import server from './../../server/server';
 import pushChange from './../../server/pushChange';
 import serverErrorHandler from './../helpers/serverErrorHandler';
 import { removeAccessCredentials } from './../../localStorage/accessCredentials';
 import { resetBoard } from './../board/actions';
+import { addSelfDisappearingMessage } from './../messages/actions';
+import { getBoardList } from './../boardList/actions';
 
 export const sidemenuOpen = () => ({
   type: 'SIDEMENU_OPEN',
@@ -38,6 +41,34 @@ export const saveTitle = () => (
       dispatch,
     );
     dispatch(finishEditTitle());
+  }
+);
+
+export const createBoardRequest = () => ({
+  type: 'CREATE_BOARD_REQUEST',
+});
+
+export const createBoardFinished = board => ({
+  type: 'CREATE_BOARD_FINISHED',
+  board,
+});
+
+export const createBoard = () => (
+  (dispatch) => {
+    server.createBoard('New board')
+      .then((response) => {
+        const boardId = response.id;
+        if (!boardId) {
+          throw new Error('Invalid server response');
+        }
+        dispatch(createBoardFinished());
+        dispatch(getBoardList());
+        dispatch(push(`/boards/${boardId}`));
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+        dispatch(createBoardFinished());
+      });
   }
 );
 
