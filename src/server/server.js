@@ -104,6 +104,21 @@ const updateBoard = ({ id, name }) => (
   ))
 );
 
+const deleteBoard = id => (
+  authorizationHandler(accessKey => (
+    errorHandler(() => (
+      fetch(`${baseUrl}/boards/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Auth-Key': accessKey,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      })
+    ))
+  ))
+);
+
 const getBoardNotes = boardId => (
   authorizationHandler(accessKey => (
     errorHandler(() => (
@@ -184,6 +199,7 @@ export default {
   getBoard,
   createBoard,
   updateBoard,
+  deleteBoard,
   getBoardNotes,
   updateNote,
   createNote,

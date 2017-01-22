@@ -28,6 +28,15 @@ class SideMenu extends Component {
     const boards = this.props.boards;
     const visibility = this.props.sidemenuOpen ? '' : ' hidden';
 
+    let deleteLink = '';
+    if (this.props.currentBoardId) {
+      deleteLink = (<li>
+        <a className="SideMenu-link" onClick={(e) => { e.preventDefault(); this.props.onDeleteBoard(this.props.currentBoardId); }}>
+          <i className="fa fa-trash" aria-hidden="true"></i> Delete current board
+        </a>
+      </li>);
+    }
+
     return (
       <div className={`SideMenu${visibility}`} ref={(sideMenu) => { this.sideMenuEl = sideMenu; }}>
         <div className="Header-header SideMenu-header">
@@ -53,6 +62,7 @@ class SideMenu extends Component {
                 <i className="fa fa-plus" aria-hidden="true"></i> Add new board
               </a>
             </li>
+            {deleteLink}
             <li className="SideMenu-separator"></li>
             <li>
               <a className="SideMenu-link" onClick={this.props.onLogout} href="#">Logout</a>
@@ -70,9 +80,11 @@ SideMenu.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ),
+  curentBoardId: PropTypes.number,
   sidemenuOpen: PropTypes.bool.isRequired,
   onMenuButtonClick: PropTypes.func.isRequired,
   onCreateBoard: PropTypes.func.isRequired,
+  onDeleteBoard: PropTypes.func.isRequired,
   onClickOutside: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,

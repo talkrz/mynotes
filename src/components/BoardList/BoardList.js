@@ -1,13 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getBoardList } from './../../redux/boardList/actions';
-import { setTitle } from './../../redux/app/actions';
+import { resetBoard } from './../../redux/board/actions';
+import { setTitle, sidemenuClose } from './../../redux/app/actions';
 import './BoardList.css';
 
 class BoardList extends Component {
 
   componentDidMount() {
     const dispatch = this.props.dispatch;
+    dispatch(resetBoard());
+    dispatch(sidemenuClose());
     dispatch(getBoardList());
     dispatch(setTitle(''));
   }

@@ -3,6 +3,7 @@ const initialState = {
   title: '',
   titleInEditMode: false,
   createBoardInProgress: false,
+  deleteBoardInProgress: false,
 };
 
 const app = (state = initialState, action) => {
@@ -14,6 +15,14 @@ const app = (state = initialState, action) => {
     case 'CREATE_BOARD_FINISHED':
       return Object.assign({}, state, {
         createBoardInProgress: false,
+      });
+    case 'DELETE_BOARD_REQUEST':
+      return Object.assign({}, state, {
+        deleteBoardInProgress: true,
+      });
+    case 'DELETE_BOARD_FINISHED':
+      return Object.assign({}, state, {
+        deleteBoardInProgress: false,
       });
     case 'SIDEMENU_OPEN':
       return Object.assign({}, state, {

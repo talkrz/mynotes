@@ -55,6 +55,7 @@ export const createBoardFinished = board => ({
 
 export const createBoard = () => (
   (dispatch) => {
+    dispatch(createBoardRequest());
     server.createBoard('New board')
       .then((response) => {
         const boardId = response.id;
@@ -64,6 +65,39 @@ export const createBoard = () => (
         dispatch(createBoardFinished());
         dispatch(getBoardList());
         dispatch(push(`/boards/${boardId}`));
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+        dispatch(createBoardFinished());
+      });
+  }
+);
+
+export const deleteBoardRequest = () => ({
+  type: 'DELETE_BOARD_REQUEST',
+});
+
+export const deleteBoardFinished = () => ({
+  type: 'DELETE_BOARD_FINISHED',
+});
+
+export const deleteBoard = boardId => (
+  (dispatch) => {
+    dispatch(deleteBoardRequest());
+    server.deleteBoard(boardId)
+      .then((response) => {
+        dispatch(deleteBoardFinished());
+
+        if (response.status === 'deleted') {
+          dispatch(addSelfDisappearingMessage('Board deleted', 'info'));
+          dispatch(resetBoard());
+          dispatch(getBoardList());
+          dispatch(push('/'));
+        } else if (response.message === 'Board is not empty') {
+          dispatch(addSelfDisappearingMessage('To remove board please remove all notes first', 'info'));
+        } else {
+          throw new Error(response.message);
+        }
       })
       .catch((err) => {
         dispatch(addSelfDisappearingMessage(err.message, 'error'));
