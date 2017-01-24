@@ -12,8 +12,7 @@ on a daily basis.
 This repo contains client-side code. The
 [server code](https://github.com/talkrz/mynotes-server) is placed in the separate repository.
 
-<img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/desktop.png" width="640">
-<img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/mobile.png" height="480">
+<img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/screenshots.png">
 
 ## How to set up the development environment
 
