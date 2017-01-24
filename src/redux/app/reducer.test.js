@@ -7,6 +7,8 @@ describe('Reducers :: app', () => {
       sidemenuOpen: false,
       title: '',
       titleInEditMode: false,
+      createBoardInProgress: false,
+      deleteBoardInProgress: false,
     });
   });
 
