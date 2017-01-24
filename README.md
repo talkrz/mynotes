@@ -1,5 +1,7 @@
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/src/logo.png" width="180">
 
+<img src="https://api.travis-ci.org/talkrz/mynotes.svg">
+
 My notes is a simple sticky notes web application created to get familiar with modern
 web development technology stack (react, redux, draft-js etc.), as well as to learn implementing
 user interfaces.
