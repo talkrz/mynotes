@@ -1,11 +1,14 @@
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/src/logo.png" width="180">
 
-My notes is a simple sticky notes app created to learn web development tech
-stack (react, redux etc.) and make an useful thing as a side effect.
+My notes is a simple sticky notes web application created to get familiar with modern
+web development technology stack (react, redux, draft-js etc.), as well as to learn implementing
+user interfaces.
 
-This repo contains client-side code.
+Moreover, it is intended to be an useful and functional application which I personally use
+on a daily basis.
 
-Look at the `mynotes-server` repository for the server-side code.
+This repo contains client-side code. The
+[server code](https://github.com/talkrz/mynotes-server) is placed in the separate repository.
 
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/desktop.png" width="640">
 <img src="https://raw.githubusercontent.com/talkrz/mynotes/master/docs/screenshots/mobile.png" height="480">
