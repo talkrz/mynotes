@@ -4,7 +4,7 @@ My notes is a simple sticky notes web application created to get familiar with m
 web development technology stack (react, redux, draft-js etc.), as well as to learn implementing
 user interfaces.
 
-Moreover, it is intended to be an useful and functional application which I personally use
+Moreover, it is intended to be a useful and functional application which I personally use
 on a daily basis.
 
 This repo contains client-side code. The
