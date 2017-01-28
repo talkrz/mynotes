@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { getBoardList } from './../../redux/boardList/actions';
 import { resetBoard } from './../../redux/board/actions';
 import { setTitle, sidemenuClose } from './../../redux/app/actions';
+import BoardListItem from './BoardListItem/BoardListItem';
 import './BoardList.css';
 
 class BoardList extends Component {
@@ -19,9 +19,12 @@ class BoardList extends Component {
     return (
       <div className="BoardList">
         {this.props.boards.map((board, key) => (
-          <Link className="BoardList-link" to={`/boards/${board.id}`} key={key}>
-            {board.name}
-          </Link>
+          <BoardListItem
+            key={key}
+            boardKey={key}
+            board={board}
+            boardThumbnail={this.props.boardsThumbnails[key] !== undefined ? this.props.boardsThumbnails[key] : []}
+            dispatch={this.props.dispatch} />
         ))}
       </div>
     );
@@ -35,6 +38,17 @@ BoardList.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
     }),
+  ),
+  boardsThumbnails: PropTypes.arrayOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        color: PropTypes.string.isRequired,
+      }),
+    ),
   ),
 };
 

@@ -2,6 +2,33 @@ import { push } from 'react-router-redux';
 import server from './../../server/server';
 import { addSelfDisappearingMessage } from './../../redux/messages/actions';
 
+export const getThumbnailSuccess = (boardKey, thumbnail, width, height) => ({
+  type: 'GET_THUMBNAIL_SUCCESS',
+  boardKey,
+  thumbnail,
+  width,
+  height,
+});
+
+export const getThumbnail = (boardKey, boardId, width, height) => (
+  (dispatch, getState) => {
+    server.getBoardNotes(boardId)
+      .then((response) => {
+        dispatch(getThumbnailSuccess(boardKey, response, width, height));
+      })
+      .catch((err) => {
+        if (err === 'Unauthorized') {
+          dispatch(push('/login'));
+        } else {
+          throw err;
+        }
+      })
+      .catch((err) => {
+        dispatch(addSelfDisappearingMessage(err.message, 'error'));
+      });
+  }
+);
+
 export const getBoardListRequest = () => ({
   type: 'GET_BOARD_LIST_REQUEST',
 });
@@ -31,7 +58,6 @@ export const getBoardList = () => (
         }
       })
       .catch((err) => {
-        // the need of the logger
         dispatch(addSelfDisappearingMessage(err.message, 'error'));
         dispatch(getBoardListError(err.message));
       });

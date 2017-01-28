@@ -1,15 +1,6 @@
 .BoardList {
   padding: 25px;
-}
-
-a.BoardList-link {
-  display: block;
-  color: #428bca;
-  text-decoration: none;
-  margin-bottom: 15px;
-}
-
-a.BoardList-link:hover, a.BoardList-link:focus {
-    color: #2a6596;
-    text-decoration: underline;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
 }

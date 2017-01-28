@@ -3,6 +3,7 @@ import BoardList from './BoardList';
 
 const mapStateToProps = state => ({
   boards: state.boardList.boards,
+  boardsThumbnails: state.boardList.boardsThumbnails,
 });
 
 const BoardListContainer = connect(mapStateToProps)(BoardList);

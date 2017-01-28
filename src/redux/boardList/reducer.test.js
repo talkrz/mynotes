@@ -5,6 +5,7 @@ describe('Reducers :: board list', () => {
   it('Should return proper initial state', () => {
     expect(boardList(undefined, {})).to.be.deep.equal({
       boards: [],
+      boardsThumbnails: [],
       getInProgres: false,
       errorMessage: null,
     });
@@ -28,6 +29,7 @@ describe('Reducers :: board list', () => {
   it('Should handle GET_BOARD_LIST_SUCCESS', () => {
     const state = {
       boards: [],
+      boardsThumbnails: [],
       getInProgres: true,
       errorMessage: null,
     };
@@ -43,6 +45,7 @@ describe('Reducers :: board list', () => {
       boards: [
         { some: 'board' },
       ],
+      boardsThumbnails: [],
       getInProgres: false,
       errorMessage: null,
     });
@@ -51,6 +54,7 @@ describe('Reducers :: board list', () => {
   it('Should handle GET_BOARD_LIST_ERROR', () => {
     const state = {
       boards: [],
+      boardsThumbnails: [],
       getInProgres: true,
       errorMessage: null,
     };
@@ -62,6 +66,7 @@ describe('Reducers :: board list', () => {
 
     expect(newState).to.be.deep.equal({
       boards: [],
+      boardsThumbnails: [],
       getInProgres: false,
       errorMessage: 'failed',
     });

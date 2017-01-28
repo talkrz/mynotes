@@ -1,5 +1,6 @@
 const initialState = {
   boards: [],
+  boardsThumbnails: [],
   getInProgres: false,
   errorMessage: null,
 };
@@ -19,9 +20,25 @@ const boardList = (state = initialState, action) => {
     case 'GET_BOARD_LIST_ERROR':
       return Object.assign({}, state, {
         boards: [],
+        boardsThumbnails: [],
         getInProgres: false,
         errorMessage: action.errorMessage,
       });
+    case 'GET_THUMBNAIL_SUCCESS':
+      const newThumbnails = state.boardsThumbnails.slice();
+      const width = 30;
+      const height = 30;
+      newThumbnails[action.boardKey] = action.thumbnail.map(thumbnailNote => (
+        {
+          x: thumbnailNote.x * (action.width - width),
+          y: thumbnailNote.y * (action.height - height),
+          width,
+          height,
+          color: thumbnailNote.color,
+        }
+      ));
+
+      return Object.assign({}, state, { boardsThumbnails: newThumbnails });
     default:
       return state;
   }
