@@ -10,7 +10,7 @@ class TitleEditor extends Component {
 
   onClickOutside(e) {
     const domNode = this.titleEditorEl;
-    if (!domNode || !domNode.contains(e.target)) {
+    if (domNode && !domNode.contains(e.target)) {
       this.props.onTitleSave();
     }
   }

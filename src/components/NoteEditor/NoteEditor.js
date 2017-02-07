@@ -10,7 +10,7 @@ class NoteEditor extends Component {
 
   onClickOutside(e) {
     const domNode = this.noteEditorEl;
-    if (!domNode || !domNode.contains(e.target)) {
+    if (domNode && !domNode.contains(e.target)) {
       this.props.editNoteDone();
     }
   }

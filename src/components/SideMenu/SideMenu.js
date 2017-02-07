@@ -10,7 +10,7 @@ class SideMenu extends Component {
 
   onClickOutside(e) {
     const domNode = this.sideMenuEl;
-    if (!domNode || !domNode.contains(e.target)) {
+    if (domNode && !domNode.contains(e.target)) {
       this.props.onClickOutside();
     }
   }
